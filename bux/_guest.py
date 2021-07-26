@@ -3,7 +3,7 @@ from ._promise import Promise
 from typing import Dict, NamedTuple
 
 
-class Guest(NamedTuple):
+class GuestAPI(NamedTuple):
     config: Config = Config()
 
     @property
@@ -25,13 +25,13 @@ class Guest(NamedTuple):
         )
 
     def get_token(self, magic_link: str) -> Promise[str]:
-        def callback(data: dict):
+        def callback(data: dict) -> str:
             assert data['token_type'] == 'Bearer'
             return data['access_token']
         magic_link = magic_link.split('/')[-1]
         return Promise(
             method='POST',
-            url=f'{self.config.auth_url}magic-link',
+            url=f'{self.config.auth_url}authorize',
             headers=self._headers,
             data={
                 "credentials": {"token": magic_link},
