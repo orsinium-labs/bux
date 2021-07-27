@@ -81,6 +81,7 @@ def test_security_stats(api: bux.UserAPI):
     }
     assert set(resp) == fields
     assert resp.market_cap.amount >= 10 ** 9
+    assert resp.security_id == 'NL0011540547'
 
 
 def test_security_presentation(api: bux.UserAPI):
@@ -89,3 +90,4 @@ def test_security_presentation(api: bux.UserAPI):
     assert set(resp) == fields
     today = datetime.now().date()
     assert resp.market_hours.closing.date() == today
+    assert resp.ticker_code == 'ABN'

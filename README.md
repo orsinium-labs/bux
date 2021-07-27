@@ -20,6 +20,7 @@ Supported networking libraries:
 + This is an unofficial library! I'm not affiliated with BUX B.V., don't work there, don't know anyone who works there. BUX B.V. is not responsible for any bugs in this library and does not provide technical support for the library usage or development.
 + This is an OSS distributed under MIT License. I don't provide warranty nor technical support for the project. I'm not responsible for any bugs or issues you may encounter. See [LICENSE](./LICENSE).
 + The library uses public API, in a sense that it is publicly available and all you need to get access to it is an account (which you own, thanks to GDPR). However, this API is not documented and can be broken by BUX B.V. at any moment.
++ Keep in mind that [BUX Client Agreement](https://getbux.com/documents/20210705-BUX-Zero-Client-Agreement-EN.pdf) forbids placing orders in other way than the official mobile app: "You can only provide Orders to BUX through a mobile application". However, it doesn't say anything about other API endpoints, like getting historical data. Hence all endpoints, except those that place orders, are legal.
 + So, use it at your own risk! If you found a bug, you're the only one who can fix it. Please, when you fix something, contribute it back, the project is open for contributions.
 
 ## Getting started
