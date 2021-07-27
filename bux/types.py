@@ -1,7 +1,14 @@
 from decimal import Decimal
+from typing import Any, Dict
 
 
-class Me(dict):
+class Response(Dict[str, Any]):
+    def __repr__(self) -> str:
+        r = super().__repr__()
+        return f'{type(self).__name__}({r})'
+
+
+class Me(Response):
     @property
     def account_status(self) -> str:
         return self['accountStatus']
@@ -23,7 +30,7 @@ class Me(dict):
         return self['profile']['userId']
 
 
-class PersonalData(dict):
+class PersonalData(Response):
     @property
     def email(self) -> str:
         return self['email']
@@ -37,7 +44,7 @@ class PersonalData(dict):
         return self['lastName']
 
 
-class Price(dict):
+class Price(Response):
     @property
     def amount(self) -> Decimal:
         return Decimal(self['amount'])
@@ -51,7 +58,7 @@ class Price(dict):
         return self['decimals']
 
 
-class Portfolio(dict):
+class Portfolio(Response):
     @property
     def account_value(self) -> Price:
         return Price(self['accountValue'])
@@ -59,5 +66,17 @@ class Portfolio(dict):
     ...
 
 
-class Following(dict):
+class Following(Response):
+    ...
+
+
+class SecurityPresentation(Response):
+    ...
+
+
+class SecurityStats(Response):
+    ...
+
+
+class SecurityGraph(Response):
     ...
