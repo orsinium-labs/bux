@@ -18,7 +18,7 @@ class HTTPError(Exception):
 
 
 @dataclass
-class Promise(Generic[T]):
+class Request(Generic[T]):
     url: str
     headers: Dict[str, str]
 

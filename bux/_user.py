@@ -1,5 +1,5 @@
 from ._config import Config
-from ._promise import Promise
+from ._request import Request
 from typing import Dict, NamedTuple
 from .types import PersonalData, Me, Portfolio, Following
 from ._security import Security
@@ -17,29 +17,29 @@ class UserAPI(NamedTuple):
             **self.config.headers,
         }
 
-    def me(self) -> Promise[Me]:
-        return Promise(
+    def me(self) -> Request[Me]:
+        return Request(
             url=f'{self.config.stocks_url}portfolio-query/13/users/me',
             headers=self._headers,
             on_json=Me,
         )
 
-    def personal_data(self) -> Promise[PersonalData]:
-        return Promise(
+    def personal_data(self) -> Request[PersonalData]:
+        return Request(
             url=f'{self.config.stocks_url}personal-data-service/13/user',
             headers=self._headers,
             on_json=PersonalData,
         )
 
-    def portfolio(self) -> Promise[Portfolio]:
-        return Promise(
+    def portfolio(self) -> Request[Portfolio]:
+        return Request(
             url=f'{self.config.stocks_url}portfolio-query/13/users/me/portfolio',
             headers=self._headers,
             on_json=Portfolio,
         )
 
-    def following(self) -> Promise[Following]:
-        return Promise(
+    def following(self) -> Request[Following]:
+        return Request(
             url=f'{self.config.stocks_url}market-query/13/users/me/following',
             headers=self._headers,
             on_json=Following,

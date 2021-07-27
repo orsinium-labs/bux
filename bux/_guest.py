@@ -1,5 +1,5 @@
 from ._config import Config
-from ._promise import Promise
+from ._request import Request
 from typing import Dict, NamedTuple
 
 
@@ -13,10 +13,10 @@ class GuestAPI(NamedTuple):
             **self.config.headers,
         }
 
-    def request_link(self, email: str) -> Promise[bool]:
+    def request_link(self, email: str) -> Request[bool]:
         def callback(status: int):
             return status == 200
-        return Promise(
+        return Request(
             method='POST',
             url=f'{self.config.auth_url}magic-link',
             headers=self._headers,
@@ -24,12 +24,12 @@ class GuestAPI(NamedTuple):
             on_status=callback,
         )
 
-    def get_token(self, magic_link: str) -> Promise[str]:
+    def get_token(self, magic_link: str) -> Request[str]:
         def callback(data: dict) -> str:
             assert data['token_type'] == 'Bearer'
             return data['access_token']
         magic_link = magic_link.split('/')[-1]
-        return Promise(
+        return Request(
             method='POST',
             url=f'{self.config.auth_url}authorize',
             headers=self._headers,
