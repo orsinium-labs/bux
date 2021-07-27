@@ -1,7 +1,5 @@
 from typing import Any, Callable, Dict, Generic, Optional, TypeVar
 from dataclasses import dataclass
-import aiohttp
-import requests
 from http import HTTPStatus
 
 
@@ -28,10 +26,13 @@ class Request(Generic[T]):
     on_status: Optional[Callable[[int], T]] = None
 
     def requests(self) -> T:
+        import requests
+
         response = requests.request(
             method=self.method,
             url=self.url,
             json=self.data,
+            headers=self.headers,
         )
         if response.status_code >= 300:
             raise HTTPError(response.status_code, response.text)
@@ -42,11 +43,14 @@ class Request(Generic[T]):
         return response.json()
 
     async def aiohttp(self) -> T:
+        import aiohttp
+
         async with aiohttp.ClientSession() as session:
             response = await session.request(
                 method=self.method,
                 url=self.url,
                 json=self.data,
+                headers=self.headers,
             )
         if response.status >= 300:
             raise HTTPError(response.status, await response.text())

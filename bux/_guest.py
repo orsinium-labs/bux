@@ -18,7 +18,7 @@ class GuestAPI(NamedTuple):
             return status == 200
         return Request(
             method='POST',
-            url=f'{self.config.auth_url}magic-link',
+            url=f'{self.config.auth_url}/magic-link',
             headers=self._headers,
             data={'email': email},
             on_status=callback,
@@ -31,7 +31,7 @@ class GuestAPI(NamedTuple):
         magic_link = magic_link.split('/')[-1]
         return Request(
             method='POST',
-            url=f'{self.config.auth_url}authorize',
+            url=f'{self.config.auth_url}/authorize',
             headers=self._headers,
             data={
                 "credentials": {"token": magic_link},
