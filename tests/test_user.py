@@ -1,5 +1,6 @@
-import bux
 from datetime import datetime
+
+import bux
 
 
 def test_me(api: bux.UserAPI):

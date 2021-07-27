@@ -1,8 +1,9 @@
+from typing import Dict, NamedTuple
+
 from ._config import Config
 from ._request import Request
-from typing import Dict, NamedTuple
-from .types import PersonalData, Me, Portfolio, Following
 from ._security import Security
+from .types import Following, Me, PersonalData, Portfolio
 
 
 class UserAPI(NamedTuple):

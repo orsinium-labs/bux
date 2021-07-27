@@ -1,6 +1,6 @@
-from typing import Any, Callable, Dict, Generic, Optional, TypeVar
 from dataclasses import dataclass
 from http import HTTPStatus
+from typing import Any, Callable, Dict, Generic, Optional, TypeVar
 
 
 T = TypeVar('T')

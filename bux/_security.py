@@ -1,8 +1,8 @@
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, NamedTuple
+
 from ._request import Request
-from typing import NamedTuple
-from .types import SecurityStats, SecurityPresentation, SecurityGraph
+from .types import SecurityGraph, SecurityPresentation, SecurityStats
 
 
 if TYPE_CHECKING:

@@ -1,5 +1,5 @@
-from ._base import register, Command
 from .._guest import GuestAPI
+from ._base import Command, register
 
 
 @register

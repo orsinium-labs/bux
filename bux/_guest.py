@@ -1,6 +1,7 @@
+from typing import Dict, NamedTuple
+
 from ._config import Config
 from ._request import Request
-from typing import Dict, NamedTuple
 
 
 class GuestAPI(NamedTuple):

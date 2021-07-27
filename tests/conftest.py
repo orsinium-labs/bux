@@ -1,6 +1,8 @@
-import bux
-import pytest
 from pathlib import Path
+
+import pytest
+
+import bux
 
 
 token = (Path(__file__).parent.parent / '.token').read_text().strip()
