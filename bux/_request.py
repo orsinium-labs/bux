@@ -42,6 +42,23 @@ class Request(Generic[T]):
             return self.on_status(response.status_code)
         return response.json()
 
+    def httpx(self) -> T:
+        import httpx
+
+        response = httpx.request(
+            method=self.method,
+            url=self.url,
+            json=self.data,
+            headers=self.headers,
+        )
+        if response.status_code >= 300:
+            raise HTTPError(response.status_code, response.text)
+        if self.on_json:
+            return self.on_json(response.json())
+        if self.on_status:
+            return self.on_status(response.status_code)
+        return response.json()
+
     async def aiohttp(self) -> T:
         import aiohttp
 
