@@ -160,11 +160,11 @@ class Following(Response):
 class MarketHours(Response):
     @property
     def closing(self) -> datetime:
-        return datetime.fromtimestamp(self['closingTime'])
+        return datetime.fromtimestamp(self['closingTime'] / 1000)
 
     @property
     def opening(self) -> datetime:
-        return datetime.fromtimestamp(self['openingTime'])
+        return datetime.fromtimestamp(self['openingTime'] / 1000)
 
     @property
     def is_open(self) -> bool:
@@ -248,11 +248,11 @@ class SecurityStats(Response):
 
     @property
     def earnings_date(self) -> date:
-        return datetime.fromtimestamp(self['earningsDate']).date()
+        return datetime.fromtimestamp(self['earningsDate'] / 1000).date()
 
     @property
     def ex_dividend_date(self) -> date:
-        return datetime.fromtimestamp(self['exDividendDate']).date()
+        return datetime.fromtimestamp(self['exDividendDate'] / 1000).date()
 
     @property
     def high_price_year(self) -> Price:
@@ -271,8 +271,8 @@ class SecurityStats(Response):
         return Decimal(self['peRatio'])
 
     @property
-    def revenue(self) -> Price:
-        return Price(self['revenue'])
+    def revenue(self) -> Any:
+        return self['revenue']
 
     @property
     def security_id(self) -> str:
@@ -286,7 +286,7 @@ class PricePoint(Response):
 
     @property
     def time(self) -> datetime:
-        return datetime.fromtimestamp(self['time'])
+        return datetime.fromtimestamp(self['time'] / 1000)
 
 
 class SecurityGraph(Response):
