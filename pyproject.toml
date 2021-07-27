@@ -27,7 +27,15 @@ classifiers=[
 requires = []
 
 [tool.flit.metadata.requires-extra]
-test = ["pytest"]
+test = ["pytest", "pytest-cov"]
+
+[tool.pytest.ini_options]
+addopts = [
+    "--cov=bux",
+    "--cov-report=html",
+    "--cov-report=term-missing:skip-covered",
+    "--cov-fail-under=60",
+]
 
 [tool.mypy]
 files = ["bux"]
