@@ -1,6 +1,6 @@
-from datetime import date, datetime
+from datetime import datetime
 from decimal import Decimal
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 
 class Response(Dict[str, Any]):
@@ -29,6 +29,10 @@ class Me(Response):
     @property
     def user_id(self) -> str:
         return self['profile']['userId']
+
+    @property
+    def us_market_data_subscription_activated(self) -> bool:
+        return self['usMarketDataSubscriptionActivated']
 
 
 class PersonalData(Response):
@@ -233,6 +237,14 @@ class SecurityPresentation(Response):
     def ticker_code(self) -> str:
         return self['security']['tickerCode']
 
+    @property
+    def following(self) -> int:
+        return self['socialInfo']['following']
+
+    @property
+    def followers(self) -> int:
+        return self['socialInfo']['followers']
+
 
 class SecurityStats(Response):
     @property
@@ -240,7 +252,9 @@ class SecurityStats(Response):
         return self['dividendFrequency']
 
     @property
-    def dividend_per_share(self) -> Price:
+    def dividend_per_share(self) -> Optional[Price]:
+        if self['dividendPerShare'] is None:
+            return None
         return Price(self['dividendPerShare'])
 
     @property
@@ -252,12 +266,12 @@ class SecurityStats(Response):
         return Decimal(self['epsRatio'])
 
     @property
-    def earnings_date(self) -> date:
-        return datetime.fromtimestamp(self['earningsDate'] / 1000).date()
+    def earnings_date(self) -> datetime:
+        return datetime.fromtimestamp(self['earningsDate'] / 1000)
 
     @property
-    def ex_dividend_date(self) -> date:
-        return datetime.fromtimestamp(self['exDividendDate'] / 1000).date()
+    def ex_dividend_date(self) -> datetime:
+        return datetime.fromtimestamp(self['exDividendDate'] / 1000)
 
     @property
     def high_price_year(self) -> Price:
