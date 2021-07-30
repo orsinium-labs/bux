@@ -220,6 +220,11 @@ class SecurityPresentation(Response):
     def offer(self) -> Price:
         return Price(self['security']['offer'])
 
+    # TODO: check if this field exists
+    @property
+    def opening_bid(self) -> Price:
+        return Price(self['security']['openingBid'])
+
     @property
     def tags(self) -> List[str]:
         return [t['id'] for t in self['security']['tags']]
@@ -301,3 +306,85 @@ class SecurityGraph(Response):
     @property
     def prices(self) -> List[PricePoint]:
         return [PricePoint(p) for p in self['pricesTimeline']]
+
+
+class Filter(Response):
+    @property
+    def name(self) -> str:
+        return self['displayName']
+
+    @property
+    def enabled(self) -> bool:
+        return self['isEnabled']
+
+    @property
+    def type(self) -> str:
+        return self['type']
+
+    @property
+    def value(self) -> str:
+        return self['value']
+
+
+class SecurityMover(Response):
+    @property
+    def bid(self) -> Price:
+        return Price(self['bid'])
+
+    @property
+    def closing_bid(self) -> Price:
+        return Price(self['closingBid'])
+
+    @property
+    def country_code(self) -> str:
+        return self['countryCode']
+
+    @property
+    def description(self) -> str:
+        return self['description']
+
+    @property
+    def id(self) -> str:
+        return self['id']
+
+    @property
+    def name(self) -> str:
+        return self['name']
+
+    @property
+    def security_type(self) -> str:
+        return self['securityType']
+
+    @property
+    def stats(self) -> Response:
+        return Response(self['stats'])
+
+    @property
+    def offer(self) -> Price:
+        return Price(self['offer'])
+
+    @property
+    def opening_bid(self) -> Price:
+        return Price(self['openingBid'])
+
+    @property
+    def ticker_code(self) -> str:
+        return self['tickerCode']
+
+
+class Securities(Response):
+    @property
+    def toggle_filters(self) -> List[Filter]:
+        return [Filter(f) for f in self['filters']['toggleFilters']]
+
+    @property
+    def value_filters(self) -> List[Filter]:
+        return [Filter(f) for f in self['filters']['valueFilters']]
+
+    @property
+    def gainers(self) -> List[SecurityMover]:
+        return [SecurityMover(s) for s in self['gainers']]
+
+    @property
+    def losers(self) -> List[SecurityMover]:
+        return [SecurityMover(s) for s in self['losers']]

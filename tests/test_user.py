@@ -92,3 +92,25 @@ def test_security_presentation(api: bux.UserAPI):
     today = datetime.now().date()
     assert resp.market_hours.closing.date() == today
     assert resp.ticker_code == 'ABN'
+
+
+def test_security_movers(api: bux.UserAPI):
+    resp = api.movers().requests()
+    fields = {'losers', 'gainers', 'filters'}
+    assert set(resp) == fields
+    assert resp.gainers[0].ticker_code.isupper()
+
+    fields = {
+        'bid',
+        'closingBid',
+        'countryCode',
+        'description',
+        'id',
+        'name',
+        'offer',
+        'openingBid',
+        'securityType',
+        'stats',
+        'tickerCode',
+    }
+    assert set(resp.gainers[0]) == fields
