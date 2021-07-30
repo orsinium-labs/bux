@@ -341,7 +341,7 @@ class Filter(Response):
 
     @property
     def enabled(self) -> bool:
-        return self['isEnabled']
+        return self.get('isEnabled', True)
 
     @property
     def type(self) -> str:
@@ -349,7 +349,7 @@ class Filter(Response):
 
     @property
     def value(self) -> str:
-        return self['value']
+        return self.get('value', '')
 
 
 class SecurityMover(Response):

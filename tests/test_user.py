@@ -111,6 +111,7 @@ def test_security_graph(api: bux.UserAPI, record_resp):
     assert resp.max >= 1
     assert resp.prices[0].price >= 1
     check_has_all_getters(resp)
+    check_has_all_getters(resp.prices[0])
 
 
 def test_security_stats(api: bux.UserAPI, record_resp):
@@ -147,6 +148,7 @@ def test_security_presentation(api: bux.UserAPI, record_resp):
         exclude={'pendingOrders', 'forexQuote', 'tags', 'stats'},
         unwrap={'security', 'socialInfo'},
     )
+    check_has_all_getters(resp.market_hours)
 
 
 def test_security_movers(api: bux.UserAPI, record_resp):
@@ -171,3 +173,6 @@ def test_security_movers(api: bux.UserAPI, record_resp):
     }
     assert set(resp.gainers[0]) == fields
     check_has_all_getters(resp.gainers[0])
+    check_has_all_getters(resp.losers[0])
+    check_has_all_getters(resp.value_filters[0])
+    check_has_all_getters(resp.toggle_filters[0])
