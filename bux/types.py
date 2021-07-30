@@ -123,6 +123,10 @@ class SecurityFollowing(Response):
         return Price(self['security']['closingBid'])
 
     @property
+    def opening_bid(self) -> Price:
+        return Price(self['security']['openingBid'])
+
+    @property
     def country_code(self) -> str:
         return self['security']['countryCode']
 
@@ -149,6 +153,14 @@ class SecurityFollowing(Response):
     @property
     def ticker_code(self) -> str:
         return self['security']['tickerCode']
+
+    @property
+    def following(self) -> int:
+        return self['socialInfo']['following']
+
+    @property
+    def followers(self) -> int:
+        return self['socialInfo']['followers']
 
 
 class Following(Response):

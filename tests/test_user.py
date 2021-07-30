@@ -28,6 +28,14 @@ def check_has_all_getters(resp: bux.Response, exclude=(), unwrap=()):
             continue
         if value not in values:
             missed.append(name)
+    for group in unwrap:
+        for name, value in resp[group].items():
+            if name in exclude:
+                continue
+            if name in unwrap:
+                continue
+            if value not in values:
+                missed.append(name)
     assert not missed
 
 
@@ -47,8 +55,11 @@ def test_me(api: bux.UserAPI, record_resp):
     assert resp.account_status.isupper()
     assert resp.pin_status == 'ENABLED'
     assert '-' in resp.user_id
-    exclude = {'profile', 'communicationConfiguration', 'reassessmentInfo'}
-    check_has_all_getters(resp, exclude=exclude)
+    check_has_all_getters(
+        resp,
+        exclude={'communicationConfiguration', 'reassessmentInfo', 'nickname'},
+        unwrap={'profile'},
+    )
 
 
 def test_personal_data(api: bux.UserAPI, record_resp):
@@ -85,7 +96,11 @@ def test_following(api: bux.UserAPI, record_resp):
     fields = {'securities'}
     assert set(resp) == fields
     assert resp.eqty[0].bid.amount >= 0
-    check_has_all_getters(resp.eqty[0], unwrap={'security', 'socialInfo'})
+    check_has_all_getters(
+        resp.eqty[0],
+        exclude={'stats'},
+        unwrap={'security', 'socialInfo'},
+    )
 
 
 def test_security_graph(api: bux.UserAPI, record_resp):
@@ -127,8 +142,11 @@ def test_security_presentation(api: bux.UserAPI, record_resp):
     today = datetime.now().date()
     assert resp.market_hours.closing.date() == today
     assert resp.ticker_code == 'ABN'
-    exclude = {'security', 'socialInfo', 'pendingOrders', 'forexQuote'}
-    check_has_all_getters(resp, exclude=exclude)
+    check_has_all_getters(
+        resp,
+        exclude={'pendingOrders', 'forexQuote', 'tags', 'stats'},
+        unwrap={'security', 'socialInfo'},
+    )
 
 
 def test_security_movers(api: bux.UserAPI, record_resp):
