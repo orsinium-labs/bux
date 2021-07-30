@@ -27,7 +27,7 @@ classifiers=[
 requires = []
 
 [tool.flit.metadata.requires-extra]
-test = ["pytest", "pytest-cov"]
+test = ["pytest", "pytest-cov", "vcrpy"]
 
 [tool.pytest.ini_options]
 addopts = [

@@ -3,7 +3,7 @@ from datetime import datetime
 import bux
 
 
-def test_me(api: bux.UserAPI):
+def test_me(api: bux.UserAPI, record_resp):
     resp = api.me().requests()
     fields = {
         'accountStatus',
@@ -21,14 +21,14 @@ def test_me(api: bux.UserAPI):
     assert '-' in resp.user_id
 
 
-def test_personal_data(api: bux.UserAPI):
+def test_personal_data(api: bux.UserAPI, record_resp):
     resp = api.personal_data().requests()
     fields = {'lastName', 'firstName', 'email'}
     assert set(resp) == fields
     assert '@' in resp.email
 
 
-def test_portfolio(api: bux.UserAPI):
+def test_portfolio(api: bux.UserAPI, record_resp):
     resp = api.portfolio().requests()
     fields = {
         'accountValue',
@@ -48,14 +48,14 @@ def test_portfolio(api: bux.UserAPI):
     assert resp.account_value.amount >= 0
 
 
-def test_following(api: bux.UserAPI):
+def test_following(api: bux.UserAPI, record_resp):
     resp = api.following().requests()
     fields = {'securities'}
     assert set(resp) == fields
     assert resp.eqty[0].bid.amount >= 0
 
 
-def test_security_graph(api: bux.UserAPI):
+def test_security_graph(api: bux.UserAPI, record_resp):
     resp = api.security('NL0011540547').graph().requests()
     fields = {'min', 'pricesTimeline', 'max'}
     assert set(resp) == fields
@@ -64,7 +64,7 @@ def test_security_graph(api: bux.UserAPI):
     assert resp.prices[0].price >= 1
 
 
-def test_security_stats(api: bux.UserAPI):
+def test_security_stats(api: bux.UserAPI, record_resp):
     resp = api.security('NL0011540547').stats().requests()
     fields = {
         'dividendFrequency',
@@ -85,7 +85,7 @@ def test_security_stats(api: bux.UserAPI):
     assert resp.security_id == 'NL0011540547'
 
 
-def test_security_presentation(api: bux.UserAPI):
+def test_security_presentation(api: bux.UserAPI, record_resp):
     resp = api.security('NL0011540547').presentation().requests()
     fields = {'marketHours', 'security', 'socialInfo', 'pendingOrders', 'forexQuote'}
     assert set(resp) == fields
@@ -94,7 +94,7 @@ def test_security_presentation(api: bux.UserAPI):
     assert resp.ticker_code == 'ABN'
 
 
-def test_security_movers(api: bux.UserAPI):
+def test_security_movers(api: bux.UserAPI, record_resp):
     resp = api.movers().requests()
     fields = {'losers', 'gainers', 'filters'}
     assert set(resp) == fields
