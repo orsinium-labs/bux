@@ -3,6 +3,7 @@ from typing import Dict, NamedTuple
 from ._config import Config
 from ._request import Request
 from ._security import Security
+from ._securities import Securities
 from . import types
 
 
@@ -47,18 +48,11 @@ class UserAPI(NamedTuple):
         )
 
     def security(self, id: str) -> Security:
+        """Get security-specific API
+        """
         return Security(api=self, id=id)
 
-    def movers(self) -> Request[types.Securities]:
-        return Request(
-            method='POST',
-            url=f'{self.config.stocks_url}/market-query/13/securities/movers',
-            headers=self._headers,
-            data=dict(
-                filters=dict(
-                    toggleFilters=[],
-                    valueFilters=[],
-                ),
-            ),
-            on_json=types.Securities,
-        )
+    def securities(self) -> Securities:
+        """Get securities-specific API
+        """
+        return Securities(api=self)

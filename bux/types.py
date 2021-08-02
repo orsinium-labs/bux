@@ -187,6 +187,28 @@ class MarketHours(Response):
         return self['isOpen']
 
 
+class Tag(Response):
+    @property
+    def name(self) -> str:
+        return self['name']
+
+    @property
+    def id(self) -> str:
+        return self['id']
+
+    @property
+    def type(self) -> str:
+        return self['type']
+
+    @property
+    def icon_small(self) -> str:
+        return self['iconSmall']
+
+    @property
+    def icon_large(self) -> str:
+        return self['iconLarge']
+
+
 class SecurityPresentation(Response):
     @property
     def market_hours(self) -> MarketHours:
@@ -242,8 +264,8 @@ class SecurityPresentation(Response):
         return Price(self['security']['openingBid'])
 
     @property
-    def tags(self) -> List[str]:
-        return [t['id'] for t in self['security']['tags']]
+    def tags(self) -> List[Tag]:
+        return [Tag(t) for t in self['security']['tags']]
 
     @property
     def ticker_code(self) -> str:
@@ -398,7 +420,7 @@ class SecurityMover(Response):
         return self['tickerCode']
 
 
-class Securities(Response):
+class Movers(Response):
     @property
     def toggle_filters(self) -> List[Filter]:
         return [Filter(f) for f in self['filters']['toggleFilters']]

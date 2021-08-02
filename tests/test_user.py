@@ -141,18 +141,19 @@ def test_security_presentation(api: bux.UserAPI, record_resp):
     fields = {'marketHours', 'security', 'socialInfo', 'pendingOrders', 'forexQuote'}
     assert set(resp) == fields
     today = datetime.now().date()
-    assert resp.market_hours.closing.date() == today
+    assert resp.market_hours.closing.date() <= today
     assert resp.ticker_code == 'ABN'
     check_has_all_getters(
         resp,
-        exclude={'pendingOrders', 'forexQuote', 'tags', 'stats'},
+        exclude={'pendingOrders', 'forexQuote', 'stats'},
         unwrap={'security', 'socialInfo'},
     )
     check_has_all_getters(resp.market_hours)
+    check_has_all_getters(resp.tags[0])
 
 
 def test_security_movers(api: bux.UserAPI, record_resp):
-    resp = api.movers().requests()
+    resp = api.securities().movers().requests()
     fields = {'losers', 'gainers', 'filters'}
     assert set(resp) == fields
     assert resp.gainers[0].ticker_code.isupper()
