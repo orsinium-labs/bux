@@ -10,24 +10,28 @@ class SecurityPresentation(Security):
         return self['security']
 
     @property
+    def country_code(self) -> str:
+        return self._sec['countryCode']
+
+    @property
     def market_hours(self) -> MarketHours:
         return MarketHours(self['marketHours'])
 
     @property
     def exchange_id(self) -> str:
-        return self['security']['exchangeId']
+        return self._sec['exchangeId']
 
     @property
     def graph_types(self) -> List[str]:
-        return self['security']['graphTypes']
+        return self._sec['graphTypes']
 
     @property
     def status(self) -> str:
-        return self['security']['status']
+        return self._sec['status']
 
     @property
     def tags(self) -> List[Tag]:
-        return [Tag(t) for t in self['security']['tags']]
+        return [Tag(t) for t in self._sec['tags']]
 
     @property
     def following(self) -> int:

@@ -43,3 +43,10 @@ class Securities(NamedTuple):
             headers=self.api._headers,
             on_json=lambda tags: [types.Tag(t) for t in tags],
         )
+
+    def etfs(self) -> Request[List[types.ETF]]:
+        return Request(
+            url=f'{self._url}/etf',
+            headers=self.api._headers,
+            on_json=lambda d: [types.ETF(etf) for etf in d['etfCuratedList']],
+        )

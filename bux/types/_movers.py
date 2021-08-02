@@ -7,6 +7,10 @@ from ._security import Security
 
 class SecurityMover(Security):
     @property
+    def country_code(self) -> str:
+        return self._sec['countryCode']
+
+    @property
     def today_low(self) -> Price:
         return Price(self['stats']['todayLow'])
 

@@ -55,3 +55,22 @@ def test_securities_countries(api: bux.UserAPI, record_resp):
     assert resp[0].name == 'Austria'
     assert resp[0].id == 'AT'
     assert resp[0].type == 'Country'
+
+
+def test_securities_etfs(api: bux.UserAPI, record_resp):
+    resp = api.securities().etfs().requests()
+    fields = {
+        'bid',
+        'closingBid',
+        'description',
+        'id',
+        'name',
+        'offer',
+        'openingBid',
+        'securityType',
+        'stats',
+        'tickerCode',
+    }
+    assert len(resp) >= 1
+    assert set(resp[0]) == fields
+    check_has_all_getters(resp[0], unwrap={'stats'})
