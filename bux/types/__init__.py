@@ -12,6 +12,7 @@ from ._sec_graph import SecurityGraph
 from ._sec_presentation import SecurityPresentation
 from ._sec_stats import SecurityStats
 from ._tag import Tag
+from ._tag_matches import TagMatches
 
 
 __all__ = [
@@ -29,4 +30,5 @@ __all__ = [
     'SecurityPresentation',
     'SecurityStats',
     'Tag',
+    'TagMatches',
 ]

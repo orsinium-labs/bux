@@ -22,6 +22,7 @@ class Request(Generic[T]):
 
     method: str = 'GET'
     data: Optional[Dict[str, Any]] = None
+    params: Optional[Dict[str, Any]] = None
     on_json: Optional[Callable[[Any], T]] = None
     on_status: Optional[Callable[[int], T]] = None
 
@@ -32,6 +33,7 @@ class Request(Generic[T]):
             method=self.method,
             url=self.url,
             json=self.data,
+            params=self.params,
             headers=self.headers,
         )
         if response.status_code >= 300:
@@ -49,6 +51,7 @@ class Request(Generic[T]):
             method=self.method,
             url=self.url,
             json=self.data,
+            params=self.params,
             headers=self.headers,
         )
         if response.status_code >= 300:
@@ -67,6 +70,7 @@ class Request(Generic[T]):
                 method=self.method,
                 url=self.url,
                 json=self.data,
+                params=self.params,
                 headers=self.headers,
             )
         if response.status >= 300:
