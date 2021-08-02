@@ -6,10 +6,11 @@ import bux
 
 def check_has_all_getters(resp: bux.Response, exclude=(), unwrap=()):
     values = []
-    for name, getter in vars(type(resp)).items():
-        if name.startswith('_'):
+    dict_attrs = dir(dict)
+    for name in dir(type(resp)):
+        if name in dict_attrs:
             continue
-        if not isinstance(getter, property):
+        if name.startswith('_'):
             continue
         value = getattr(resp, name)
         if isinstance(value, bux.Response):

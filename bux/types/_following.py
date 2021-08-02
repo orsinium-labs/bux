@@ -1,48 +1,12 @@
 from typing import List
 from ._response import Response
-from ._price import Price
+from ._security import Security
 
 
-class SecurityFollowing(Response):
+class SecurityFollowing(Security):
     @property
-    def bid(self) -> Price:
-        return Price(self['security']['bid'])
-
-    @property
-    def closing_bid(self) -> Price:
-        return Price(self['security']['closingBid'])
-
-    @property
-    def opening_bid(self) -> Price:
-        return Price(self['security']['openingBid'])
-
-    @property
-    def country_code(self) -> str:
-        return self['security']['countryCode']
-
-    @property
-    def description(self) -> str:
-        return self['security']['description']
-
-    @property
-    def id(self) -> str:
-        return self['security']['id']
-
-    @property
-    def name(self) -> str:
-        return self['security']['name']
-
-    @property
-    def security_type(self) -> str:
-        return self['security']['securityType']
-
-    @property
-    def offer(self) -> Price:
-        return Price(self['security']['offer'])
-
-    @property
-    def ticker_code(self) -> str:
-        return self['security']['tickerCode']
+    def _sec(self):
+        return self['security']
 
     @property
     def following(self) -> int:
