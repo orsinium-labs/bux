@@ -1,4 +1,4 @@
-from ._base import Command, commands
+from ._response import Command, commands
 from ._get_token import GetToken
 
 
