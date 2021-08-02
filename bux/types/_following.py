@@ -9,10 +9,6 @@ class SecurityFollowing(Security):
         return self['security']
 
     @property
-    def country_code(self) -> str:
-        return self._sec['countryCode']
-
-    @property
     def following(self) -> int:
         return self['socialInfo']['following']
 

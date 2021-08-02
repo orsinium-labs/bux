@@ -16,6 +16,10 @@ class Security(Response):
         return Price(self._sec['closingBid'])
 
     @property
+    def country_code(self) -> str:
+        return self._sec.get('countryCode', '')
+
+    @property
     def opening_bid(self) -> Price:
         return Price(self._sec['openingBid'])
 

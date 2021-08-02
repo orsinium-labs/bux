@@ -10,10 +10,6 @@ class SecurityPresentation(Security):
         return self['security']
 
     @property
-    def country_code(self) -> str:
-        return self._sec['countryCode']
-
-    @property
     def market_hours(self) -> MarketHours:
         return MarketHours(self['marketHours'])
 

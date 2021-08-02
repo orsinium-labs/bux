@@ -76,6 +76,26 @@ def test_securities_etfs(api: bux.UserAPI, record_resp):
     check_has_all_getters(resp[0], unwrap={'stats'})
 
 
+def test_securities_usa(api: bux.UserAPI, record_resp):
+    resp = api.securities().usa().requests()
+    fields = {
+        'bid',
+        'closingBid',
+        'countryCode',
+        'description',
+        'id',
+        'name',
+        'offer',
+        'openingBid',
+        'securityType',
+        'stats',
+        'tickerCode',
+    }
+    assert len(resp) >= 1
+    assert set(resp[0]) == fields
+    check_has_all_getters(resp[0], unwrap={'stats'})
+
+
 def test_securities_filter_tag(api: bux.UserAPI, record_resp):
     resp = api.securities().filter_tag('NL').requests()
     fields = {
