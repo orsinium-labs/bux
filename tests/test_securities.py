@@ -35,3 +35,13 @@ def test_securities_featured_tags(api: bux.UserAPI, record_resp):
     fields = {'id', 'name', 'type', 'iconLarge', 'iconSmall'}
     assert set(resp[0]) == fields
     check_has_all_getters(resp[0])
+
+
+def test_securities_countries(api: bux.UserAPI, record_resp):
+    resp = api.securities().countries().requests()
+    fields = {'id', 'name', 'type', 'iconLarge', 'iconSmall'}
+    assert set(resp[0]) == fields
+    check_has_all_getters(resp[0])
+    assert resp[0].name == 'Austria'
+    assert resp[0].id == 'AT'
+    assert resp[0].type == 'Country'
