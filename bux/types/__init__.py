@@ -1,9 +1,8 @@
-from ._etf import ETF
 from ._filter import Filter
 from ._following import Following
 from ._market_hours import MarketHours
 from ._me import Me
-from ._movers import Movers, SecurityMover
+from ._movers import Movers
 from ._personal_data import PersonalData
 from ._portfolio import Portfolio
 from ._price import Price
@@ -17,7 +16,6 @@ from ._tag_matches import TagMatches
 
 
 __all__ = [
-    'ETF',
     'Filter',
     'Following',
     'MarketHours',
@@ -31,7 +29,6 @@ __all__ = [
     'SecurityPresentation',
     'SecurityStats',
     'Security',
-    'SecurityMover',
     'Tag',
     'TagMatches',
 ]

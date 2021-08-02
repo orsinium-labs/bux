@@ -1,3 +1,4 @@
+from typing import Optional
 from ._response import Response
 from ._price import Price
 
@@ -20,7 +21,9 @@ class Security(Response):
         return self._sec.get('countryCode', '')
 
     @property
-    def opening_bid(self) -> Price:
+    def opening_bid(self) -> Optional[Price]:
+        if not self._sec.get('openingBid'):
+            return None
         return Price(self._sec['openingBid'])
 
     @property
@@ -46,3 +49,15 @@ class Security(Response):
     @property
     def ticker_code(self) -> str:
         return self._sec['tickerCode']
+
+    @property
+    def today_low(self) -> Optional[Price]:
+        if not self.get('stats'):
+            return None
+        return Price(self['stats']['todayLow'])
+
+    @property
+    def today_high(self) -> Optional[Price]:
+        if not self.get('stats'):
+            return None
+        return Price(self['stats']['todayHigh'])

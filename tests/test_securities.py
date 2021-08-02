@@ -71,9 +71,11 @@ def test_securities_etfs(api: bux.UserAPI, record_resp):
         'stats',
         'tickerCode',
     }
-    assert len(resp) >= 1
+    assert len(resp) >= 4
     assert set(resp[0]) == fields
-    check_has_all_getters(resp[0], unwrap={'stats'})
+    for etf in resp:
+        assert set(etf) == fields
+        check_has_all_getters(etf, unwrap={'stats'})
 
 
 def test_securities_usa(api: bux.UserAPI, record_resp):
@@ -86,14 +88,14 @@ def test_securities_usa(api: bux.UserAPI, record_resp):
         'id',
         'name',
         'offer',
-        'openingBid',
         'securityType',
         'stats',
         'tickerCode',
     }
     assert len(resp) >= 1
-    assert set(resp[0]) == fields
-    check_has_all_getters(resp[0], unwrap={'stats'})
+    for stock in resp:
+        assert set(stock) - {'openingBid'} == fields
+        check_has_all_getters(stock, unwrap={'stats'})
 
 
 def test_securities_filter_tag(api: bux.UserAPI, record_resp):
@@ -119,5 +121,7 @@ def test_securities_filter_tag(api: bux.UserAPI, record_resp):
         'stats',
         'tickerCode',
     }
-    assert set(resp.stocks[0]) == fields
-    check_has_all_getters(resp.stocks[0], unwrap={'stats'})
+    assert len(resp.stocks) > 10
+    for stock in resp.stocks:
+        assert set(stock) == fields
+        check_has_all_getters(stock, unwrap={'stats'})

@@ -45,18 +45,18 @@ class Securities(NamedTuple):
             on_json=lambda tags: [types.Tag(t) for t in tags],
         )
 
-    def etfs(self) -> Request[List[types.ETF]]:
+    def etfs(self) -> Request[List[types.Security]]:
         return Request(
             url=f'{self._url}/etf',
             headers=self.api._headers,
-            on_json=lambda d: [types.ETF(etf) for etf in d['etfCuratedList']],
+            on_json=lambda d: [types.Security(etf) for etf in d['etfCuratedList']],
         )
 
-    def usa(self) -> Request[List[types.SecurityMover]]:
+    def usa(self) -> Request[List[types.Security]]:
         return Request(
             url=f'{self._url}/stocks/usa',
             headers=self.api._headers,
-            on_json=lambda d: [types.SecurityMover(etf) for etf in d['usaCuratedStocksList']],
+            on_json=lambda d: [types.Security(etf) for etf in d['usaCuratedStocksList']],
         )
 
     def filter_tag(self, tag: str, *, available_cash: bool = False) -> Request[types.TagMatches]:

@@ -1,6 +1,6 @@
 from typing import List
 from ._response import Response
-from ._movers import SecurityMover
+from ._movers import Security
 from ._tag import Tag
 
 
@@ -14,5 +14,5 @@ class TagMatches(Response):
         return [Tag(t) for t in self['tags']]
 
     @property
-    def stocks(self) -> List[SecurityMover]:
-        return [SecurityMover(s) for s in self['stocks']]
+    def stocks(self) -> List[Security]:
+        return [Security(s) for s in self['stocks']]
