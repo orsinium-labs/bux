@@ -404,8 +404,12 @@ class SecurityMover(Response):
         return self['securityType']
 
     @property
-    def stats(self) -> Response:
-        return Response(self['stats'])
+    def today_low(self) -> Price:
+        return Price(self['stats']['todayLow'])
+
+    @property
+    def today_high(self) -> Price:
+        return Price(self['stats']['todayHigh'])
 
     @property
     def offer(self) -> Price:

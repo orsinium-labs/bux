@@ -24,8 +24,8 @@ def test_securities_movers(api: bux.UserAPI, record_resp):
         'tickerCode',
     }
     assert set(resp.gainers[0]) == fields
-    check_has_all_getters(resp.gainers[0])
-    check_has_all_getters(resp.losers[0])
+    check_has_all_getters(resp.gainers[0], unwrap={'stats'})
+    check_has_all_getters(resp.losers[0], unwrap={'stats'})
     check_has_all_getters(resp.value_filters[0])
     check_has_all_getters(resp.toggle_filters[0])
 
