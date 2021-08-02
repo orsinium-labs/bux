@@ -66,3 +66,10 @@ class Securities(NamedTuple):
             params=dict(availableCashFilterEnabled=available_cash),
             on_json=types.TagMatches,
         )
+
+    def filter_new(self) -> Request[types.TagMatches]:
+        return Request(
+            url=f'{self._url}/filter/newlyAdded',
+            headers=self.api._headers,
+            on_json=types.TagMatches,
+        )

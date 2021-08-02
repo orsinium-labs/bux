@@ -125,3 +125,31 @@ def test_securities_filter_tag(api: bux.UserAPI, record_resp):
     for stock in resp.stocks:
         assert set(stock) == fields
         check_has_all_getters(stock, unwrap={'stats'})
+
+
+def test_securities_filter_new(api: bux.UserAPI, record_resp):
+    resp = api.securities().filter_new().requests()
+    fields = {
+        'tags',
+        'parentTag',
+        'stocks',
+    }
+    assert set(resp) == fields
+    check_has_all_getters(resp)
+
+    fields = {
+        'bid',
+        'closingBid',
+        'description',
+        'id',
+        'name',
+        'offer',
+        'openingBid',
+        'securityType',
+        'stats',
+        'tickerCode',
+    }
+    assert len(resp.stocks) > 10
+    for stock in resp.stocks:
+        assert set(stock) - {'countryCode'} == fields
+        check_has_all_getters(stock, unwrap={'stats'})
