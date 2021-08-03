@@ -65,3 +65,13 @@ def test_following(api: bux.UserAPI, record_resp):
         exclude={'stats'},
         unwrap={'security', 'socialInfo'},
     )
+
+
+def test_inbox(api: bux.UserAPI, record_resp):
+    resp = api.inbox().requests()
+    assert resp
+    fields = {'id', 'timestamp', 'type', 'unread', 'content'}
+    assert set(resp[0]) == fields
+    assert resp[0].type.isupper()
+    for msg in resp:
+        check_has_all_getters(msg, unwrap={'content'})

@@ -60,6 +60,8 @@ class Securities(NamedTuple):
         )
 
     def filter_tag(self, tag: str, *, available_cash: bool = False) -> Request[types.TagMatches]:
+        """Get stocks matching the given tag.
+        """
         return Request(
             url=f'{self._url}/filter/tag/{tag}',
             headers=self.api._headers,
@@ -68,8 +70,15 @@ class Securities(NamedTuple):
         )
 
     def filter_new(self) -> Request[types.TagMatches]:
+        """Get newly added stocks.
+        """
         return Request(
             url=f'{self._url}/filter/newlyAdded',
             headers=self.api._headers,
             on_json=types.TagMatches,
         )
+
+    def filter_dividends(self, *, available_cash: bool = False) -> Request[types.TagMatches]:
+        """Get stocks with upcoming dividends.
+        """
+        return self.filter_tag('dividend', available_cash=available_cash)

@@ -2,6 +2,7 @@ from ._filter import Filter
 from ._following import Following
 from ._market_hours import MarketHours
 from ._me import Me
+from ._message import Message
 from ._movers import Movers
 from ._personal_data import PersonalData
 from ._portfolio import Portfolio
@@ -20,6 +21,7 @@ __all__ = [
     'Following',
     'MarketHours',
     'Me',
+    'Message',
     'Movers',
     'PersonalData',
     'Portfolio',

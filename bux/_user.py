@@ -1,4 +1,4 @@
-from typing import Dict, NamedTuple
+from typing import Dict, List, NamedTuple
 
 from ._config import Config
 from ._request import Request
@@ -45,6 +45,13 @@ class UserAPI(NamedTuple):
             url=f'{self.config.stocks_url}/market-query/13/users/me/following',
             headers=self._headers,
             on_json=types.Following,
+        )
+
+    def inbox(self) -> Request[List[types.Message]]:
+        return Request(
+            url=f'{self.config.stocks_url}/inbox-query/13/users/me/inbox',
+            headers=self._headers,
+            on_json=lambda data: [types.Message(m) for m in data],
         )
 
     def security(self, id: str) -> Security:
