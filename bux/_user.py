@@ -41,6 +41,8 @@ class UserAPI(NamedTuple):
         )
 
     def following(self) -> Request[types.Following]:
+        """Get information about stocks you follow.
+        """
         return Request(
             url=f'{self.config.stocks_url}/market-query/13/users/me/following',
             headers=self._headers,
@@ -52,6 +54,21 @@ class UserAPI(NamedTuple):
             url=f'{self.config.stocks_url}/inbox-query/13/users/me/inbox',
             headers=self._headers,
             on_json=lambda data: [types.Message(m) for m in data],
+        )
+
+    def tikkie_deposit(self, amount: int, *, currency: str = 'EUR') -> Request[str]:
+        """Request tikkie payment URL.
+        """
+        return Request(
+            method='POST',
+            url=f'{self.config.stocks_url}/payment-query/13/payment/tikkie/deposit',
+            headers=self._headers,
+            data=dict(
+                amount=f'{amount}.00',
+                currency=currency,
+                decimals=2,
+            ),
+            on_json=lambda data: data['paymentUrl'],
         )
 
     def security(self, id: str) -> Security:
