@@ -52,7 +52,13 @@ def test_portfolio(api: bux.UserAPI, record_resp):
     }
     assert set(resp) == fields
     assert resp.account_value.amount >= 0
-    check_has_all_getters(resp)
+    check_has_all_getters(resp, exclude={'positions'})
+    if resp['positions']['EQTY']:
+        check_has_all_getters(
+            resp.positions_eqty[0],
+            exclude={'securityType', 'position'},
+            unwrap={'security'},
+        )
 
 
 def test_following(api: bux.UserAPI, record_resp):

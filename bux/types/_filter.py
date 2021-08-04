@@ -1,3 +1,4 @@
+from typing import Optional
 from ._response import Response
 
 
@@ -15,5 +16,5 @@ class Filter(Response):
         return self['type']
 
     @property
-    def value(self) -> str:
-        return self.get('value', '')
+    def value(self) -> Optional[str]:
+        return self.get('value')

@@ -1,5 +1,68 @@
+from typing import List, Optional
 from ._response import Response
 from ._price import Price
+
+
+class Position(Response):
+    @property
+    def buy_amount(self) -> Price:
+        return Price(self['position']['allTimeChanges']['buyAmount'])
+
+    @property
+    def cash_change(self) -> Price:
+        return Price(self['position']['allTimeChanges']['cashChange'])
+
+    @property
+    def sell_amount(self) -> Price:
+        return Price(self['position']['allTimeChanges']['sellAmount'])
+
+    @property
+    def average_purchase_price(self) -> Price:
+        return Price(self['position']['averagePurchasePrice'])
+
+    @property
+    def average_purchase_price_in_user_currency(self) -> Price:
+        return Price(self['position']['averagePurchasePriceInUserCurrency'])
+
+    @property
+    def investment_amount(self) -> Price:
+        return Price(self['position']['investmentAmount'])
+
+    @property
+    def previous_closing_amount(self) -> Price:
+        return Price(self['position']['previousClosingAmount'])
+
+    @property
+    def quantity(self) -> int:
+        return int(self['position']['quantity'])
+
+    @property
+    def today_quantity(self) -> int:
+        return int(self['position']['todayPerformance']['quantity'])
+
+    @property
+    def change_amount(self) -> Price:
+        return Price(self['position']['todayPerformance']['changeAmount'])
+
+    @property
+    def intra_day_trades_amount(self) -> Price:
+        return Price(self['position']['todayPerformance']['intraDayTradesAmount'])
+
+    @property
+    def id(self) -> str:
+        return self['security']['id']
+
+    @property
+    def name(self) -> str:
+        return self['security']['name']
+
+    @property
+    def country_code(self) -> Optional[str]:
+        return self['security'].get('countryCode')
+
+    @property
+    def offer(self) -> Price:
+        return Price(self['security']['offer'])
 
 
 class Portfolio(Response):
@@ -48,5 +111,9 @@ class Portfolio(Response):
         return Response(self['orders'])
 
     @property
-    def positions(self) -> Response:
-        return Response(self['positions'])
+    def positions_eqty(self) -> List[Position]:
+        return [Position(p) for p in self['positions']['EQTY']]
+
+    @property
+    def positions_etf(self) -> List[Position]:
+        return [Position(p) for p in self['positions']['ETF']]
