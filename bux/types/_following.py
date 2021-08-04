@@ -9,5 +9,5 @@ class Following(Response):
         return [SecurityNested(v) for v in self['securities']['EQTY']]
 
     @property
-    def etf(self) -> List[Response]:
-        return [Response(v) for v in self['securities']['ETF']]
+    def etf(self) -> List[SecurityNested]:
+        return [SecurityNested(v) for v in self['securities']['ETF']]
