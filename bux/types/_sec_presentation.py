@@ -34,7 +34,7 @@ class SecurityPresentation(Security):
         return self._sec.get('keyInformationURL')
 
     @property
-    def following(self) -> int:
+    def following(self) -> bool:
         return self['socialInfo']['following']
 
     @property

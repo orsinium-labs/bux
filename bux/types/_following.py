@@ -9,7 +9,7 @@ class SecurityFollowing(Security):
         return self['security']
 
     @property
-    def following(self) -> int:
+    def following(self) -> bool:
         return self['socialInfo']['following']
 
     @property

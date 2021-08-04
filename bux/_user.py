@@ -71,6 +71,14 @@ class UserAPI(NamedTuple):
             on_json=lambda data: data['paymentUrl'],
         )
 
+    def search(self, query: str) -> Request[types.Search]:
+        return Request(
+            url=f'{self.config.stocks_url}/market-query/13/search',
+            headers=self._headers,
+            params=dict(q=query),
+            on_json=types.Search,
+        )
+
     def security(self, id: str) -> Security:
         """Get security-specific API
         """

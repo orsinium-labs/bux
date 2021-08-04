@@ -61,3 +61,17 @@ class Security(Response):
         if not self.get('stats'):
             return None
         return Price(self['stats']['todayHigh'])
+
+
+class SecurityNested(Security):
+    @property
+    def _sec(self):
+        return self['security']
+
+    @property
+    def following(self) -> bool:
+        return self['socialInfo']['following']
+
+    @property
+    def followers(self) -> int:
+        return self['socialInfo']['followers']

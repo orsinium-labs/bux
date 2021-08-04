@@ -8,6 +8,7 @@ from ._personal_data import PersonalData
 from ._portfolio import Portfolio
 from ._price import Price
 from ._response import Response
+from ._search import Search
 from ._sec_graph import SecurityGraph
 from ._sec_presentation import SecurityPresentation
 from ._sec_stats import SecurityStats
@@ -27,6 +28,7 @@ __all__ = [
     'Portfolio',
     'Price',
     'Response',
+    'Search',
     'SecurityGraph',
     'SecurityPresentation',
     'SecurityStats',

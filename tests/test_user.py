@@ -81,3 +81,20 @@ def test_inbox(api: bux.UserAPI, record_resp):
     assert resp[0].type.isupper()
     for msg in resp:
         check_has_all_getters(msg, unwrap={'content'})
+
+
+def test_search(api: bux.UserAPI, record_resp):
+    resp = api.search('Netherlands').requests()
+    fields = {'securities', 'tags', 'securitiesUnderPrice'}
+    assert set(resp) == fields
+    assert resp.tags
+    for tag in resp.tags:
+        check_has_all_getters(tag)
+
+    assert resp.etf
+    for etf in resp.etf:
+        check_has_all_getters(
+            etf,
+            unwrap={'security', 'socialInfo'},
+            exclude={'stats'},
+        )
