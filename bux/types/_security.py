@@ -64,6 +64,12 @@ class Security(Response):
 
 
 class SecurityNested(Security):
+    """Like a regular security but with `following` and `followers` fields.
+
+    For some reason, the API returns all regular security fields
+    as nested into `security` if there is social info presented.
+    We just unwrap it because "flat is better than nested".
+    """
     @property
     def _sec(self):
         return self['security']

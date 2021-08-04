@@ -1,14 +1,10 @@
 from typing import List, Optional
 from ._market_hours import MarketHours
 from ._tag import Tag
-from ._security import Security
+from ._security import SecurityNested
 
 
-class SecurityPresentation(Security):
-    @property
-    def _sec(self) -> dict:
-        return self['security']
-
+class SecurityPresentation(SecurityNested):
     @property
     def market_hours(self) -> MarketHours:
         return MarketHours(self['marketHours'])
@@ -32,11 +28,3 @@ class SecurityPresentation(Security):
     @property
     def key_information_url(self) -> Optional[str]:
         return self._sec.get('keyInformationURL')
-
-    @property
-    def following(self) -> bool:
-        return self['socialInfo']['following']
-
-    @property
-    def followers(self) -> int:
-        return self['socialInfo']['followers']
