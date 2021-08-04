@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from ._market_hours import MarketHours
 from ._tag import Tag
 from ._security import Security
@@ -6,7 +6,7 @@ from ._security import Security
 
 class SecurityPresentation(Security):
     @property
-    def _sec(self):
+    def _sec(self) -> dict:
         return self['security']
 
     @property
@@ -28,6 +28,10 @@ class SecurityPresentation(Security):
     @property
     def tags(self) -> List[Tag]:
         return [Tag(t) for t in self._sec['tags']]
+
+    @property
+    def key_information_url(self) -> Optional[str]:
+        return self._sec.get('keyInformationURL')
 
     @property
     def following(self) -> int:

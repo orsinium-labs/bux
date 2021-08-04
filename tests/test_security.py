@@ -52,3 +52,19 @@ def test_security_presentation(api: bux.UserAPI, record_resp):
     )
     check_has_all_getters(resp.market_hours)
     check_has_all_getters(resp.tags[0])
+
+
+def test_security_presentation_etf(api: bux.UserAPI, record_resp):
+    resp = api.security('NL0009272749').presentation().requests()
+    fields = {'marketHours', 'security', 'socialInfo', 'pendingOrders', 'forexQuote'}
+    assert set(resp) == fields
+    today = datetime.now().date()
+    assert resp.market_hours.closing.date() <= today
+    assert resp.ticker_code == 'TDT'
+    check_has_all_getters(
+        resp,
+        exclude={'pendingOrders', 'forexQuote', 'stats'},
+        unwrap={'security', 'socialInfo'},
+    )
+    check_has_all_getters(resp.market_hours)
+    check_has_all_getters(resp.tags[0])

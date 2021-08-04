@@ -5,7 +5,7 @@ from ._price import Price
 
 class Security(Response):
     @property
-    def _sec(self):
+    def _sec(self) -> dict:
         return self
 
     @property
