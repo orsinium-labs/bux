@@ -10,6 +10,7 @@ class Search(Command):
     @staticmethod
     def init_parser(parser: ArgumentParser) -> None:
         parser.add_argument('--token', required=True)
+        parser.add_argument('--format', default='  {id} [{tickerCode}] {name}')
         parser.add_argument('query')
 
     def run(self) -> int:
@@ -25,5 +26,5 @@ class Search(Command):
             if group:
                 print(f'{group_name}:')
             for stock in group:
-                print(' ', stock.id, stock.name)
+                print(self.args.format.format(**stock['security']))
         return 0

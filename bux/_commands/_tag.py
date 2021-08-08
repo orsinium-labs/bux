@@ -10,11 +10,12 @@ class Tag(Command):
     @staticmethod
     def init_parser(parser: ArgumentParser) -> None:
         parser.add_argument('--token', required=True)
+        parser.add_argument('--format', default='{id} [{tickerCode}] {name}')
         parser.add_argument('tag')
 
     def run(self) -> int:
         api = UserAPI(token=self.args.token)
         matches = api.securities().filter_tag(self.args.tag).requests()
         for stock in matches.stocks:
-            print(stock.id, stock.name)
+            print(self.args.format.format(**stock))
         return 0
