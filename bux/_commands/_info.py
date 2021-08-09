@@ -24,4 +24,5 @@ class Info(Command):
 
         print('bid', info.bid.amount, info.bid.currency)
         print('ask', info.offer.amount, info.offer.currency)
+        print('graph types:', ','.join(info.graph_types))
         return 0
