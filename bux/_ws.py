@@ -1,4 +1,4 @@
-from typing import NamedTuple, Optional, TypeVar
+from typing import NamedTuple, NewType, Optional, Type, TypeVar
 from contextlib import asynccontextmanager
 
 from ._config import Config
@@ -7,22 +7,27 @@ from websockets.legacy.client import Connect, WebSocketClientProtocol
 from . import types
 
 T = TypeVar('T', bound='WebSocketAPI')
+Topic = NewType('Topic', str)
 
 
-TOPICS = {
-    "users.me.status",
-    "users.me.badge",
-    "users.me.inbox",
-    "users.me.orders",
-    "users.me.portfolio.v2",
-    "stocks.market",
-}
+class Topics:
+    my_status = Topic('users.me.status')
+    my_badge = Topic('users.me.badge')
+    my_inbox = Topic('users.me.inbox')
+    my_orders = Topic('users.me.orders')
+    my_portfolio = Topic('users.me.portfolio')
+    market = Topic('stocks.market')
+
+    @staticmethod
+    def quote(ticker: str) -> Topic:
+        return Topic(f'stocks.quote.{ticker}')
 
 
 class WebSocketAPI(NamedTuple):
     token: str
     config: Config = Config()
     connection: Optional[WebSocketClientProtocol] = None
+    topics: Type[Topics] = Topics
 
     async def _send(self, **kwargs) -> None:
         if self.connection is None:
@@ -49,16 +54,16 @@ class WebSocketAPI(NamedTuple):
         assert self.connection is not None
         await self.connection.close()
 
-    async def subscribe(self, topic: str):
+    async def subscribe(self, *topics: Topic) -> None:
         await self._send(
-            subscribeTo=[topic],
+            subscribeTo=topics,
             unsubscribeFrom=[],
         )
 
-    async def unsubscribe(self, topic: str):
+    async def unsubscribe(self, *topics: Topic) -> None:
         await self._send(
             subscribeTo=[],
-            unsubscribeFrom=[topic],
+            unsubscribeFrom=topics,
         )
 
     async def get(self) -> types.Response:
@@ -71,10 +76,9 @@ class WebSocketAPI(NamedTuple):
         return types.Response(msg['body'])
 
     @asynccontextmanager
-    async def quote(self, ticker: str):
-        topic = f'stocks.quote.{ticker}'
-        await self.subscribe(topic)
+    async def listen(self, *topics: Topic):
+        await self.subscribe(*topics)
         try:
             yield self
         finally:
-            await self.unsubscribe(topic)
+            await self.unsubscribe(*topics)
