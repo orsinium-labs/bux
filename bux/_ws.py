@@ -11,15 +11,25 @@ Topic = NewType('Topic', str)
 
 
 class Topics:
-    my_status = Topic('users.me.status')
-    my_badge = Topic('users.me.badge')
-    my_inbox = Topic('users.me.inbox')
-    my_orders = Topic('users.me.orders')
-    my_portfolio = Topic('users.me.portfolio')
+    badge = Topic('users.me.badge')
+    cash_balance = Topic('users.me.cashBalance')
+    comm_config = Topic('users.me.configuration.communication')
+    followed_securities = Topic('users.me.securities')
+    inbox = Topic('users.me.inbox')
+    logbook = Topic('users.me.logbook')
     market = Topic('stocks.market')
+    onboarding = Topic('users.me.onboarding')
+    orders = Topic('users.me.orders')
+    portfolio = Topic('users.me.portfolio.v2')
+    trades = Topic('users.me.trades')
+    user_status = Topic('users.me.status')
 
     @staticmethod
-    def quote(ticker: str) -> Topic:
+    def forex(ticker: str) -> Topic:
+        return Topic(f'forex.quote.{ticker}')
+
+    @staticmethod
+    def security(ticker: str) -> Topic:
         return Topic(f'stocks.quote.{ticker}')
 
 
