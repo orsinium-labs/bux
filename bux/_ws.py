@@ -1,5 +1,6 @@
-from typing import NamedTuple, NewType, Optional, Type, TypeVar
+from typing import NewType, Optional, Type, TypeVar
 from contextlib import asynccontextmanager
+from dataclasses import dataclass
 
 from ._config import Config
 import json
@@ -33,7 +34,8 @@ class Topics:
         return Topic(f'stocks.quote.{ticker}')
 
 
-class WebSocketAPI(NamedTuple):
+@dataclass
+class WebSocketAPI:
     token: str
     config: Config = Config()
     connection: Optional[WebSocketClientProtocol] = None
@@ -45,14 +47,15 @@ class WebSocketAPI(NamedTuple):
         await self.connection.send(json.dumps(kwargs))
 
     async def __aenter__(self: T) -> T:
-        return self._replace(connection=await Connect(
+        self.connection = await Connect(
             uri=self.config.ws_url,
             extra_headers={
                 'authorization': f'Bearer {self.token}',
                 'pin-authorization': 'Bearer null',
                 **self.config.headers,
             },
-        ))
+        )
+        return self
 
     def __aiter__(self: T) -> T:
         return self

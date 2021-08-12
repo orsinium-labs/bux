@@ -16,7 +16,7 @@ class ListenQuotes(Command):
 
     async def run_async(self) -> int:
         async with WebSocketAPI(token=self.args.token) as api:
-            topics = [api.topics.quote(id) for id in self.args.ids]
+            topics = [api.topics.security(id) for id in self.args.ids]
             async with api.listen(*topics):
                 async for msg in api:
                     if isinstance(msg, types.WSQuote):
