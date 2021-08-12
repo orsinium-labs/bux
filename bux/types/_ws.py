@@ -2,7 +2,11 @@ from ._response import Response
 from ._price import Price
 
 
-class WSQuote(Response):
+class WSResponse(Response):
+    pass
+
+
+class WSQuote(WSResponse):
     @property
     def id(self) -> str:
         return self['id']

@@ -47,7 +47,7 @@ class WebSocketAPI(NamedTuple):
     def __aiter__(self: T) -> T:
         return self
 
-    async def __anext__(self) -> types.Response:
+    async def __anext__(self) -> types.WSResponse:
         return await self.get()
 
     async def __aexit__(self, *args, **kwargs) -> None:
@@ -66,14 +66,14 @@ class WebSocketAPI(NamedTuple):
             unsubscribeFrom=topics,
         )
 
-    async def get(self) -> types.Response:
+    async def get(self) -> types.WSResponse:
         if self.connection is None:
             raise RuntimeError("WebSocketAPI is not connected")
         raw = await self.connection.recv()
         msg = json.loads(raw)
         if msg['t'] == 'stocks.quote':
             return types.WSQuote(msg['body'])
-        return types.Response(msg['body'])
+        return types.WSResponse(msg['body'])
 
     @asynccontextmanager
     async def listen(self, *topics: Topic):
