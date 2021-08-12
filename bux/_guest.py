@@ -15,14 +15,12 @@ class GuestAPI(NamedTuple):
         }
 
     def request_link(self, email: str) -> Request[bool]:
-        def callback(status: int):
-            return status == 200
         return Request(
             method='POST',
             url=f'{self.config.auth_url}/magic-link',
             headers=self._headers,
             data={'email': email},
-            on_status=callback,
+            on_status=lambda status: status == 202,
         )
 
     def get_token(self, magic_link: str) -> Request[str]:
