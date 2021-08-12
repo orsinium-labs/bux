@@ -7,6 +7,7 @@ from ._countries import Countries
 from ._graph import Graph
 from ._inbox import Inbox
 from ._info import Info
+from ._listen_quotes import ListenQuotes
 from ._losers import Losers
 from ._me import Me
 from ._new_stocks import NewStocks
@@ -26,6 +27,7 @@ __all__ = [
     'Graph',
     'Inbox',
     'Info',
+    'ListenQuotes',
     'Losers',
     'Me',
     'NewStocks',

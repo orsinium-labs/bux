@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+import asyncio
 from typing import Any, Dict, TextIO, Type, TypeVar
 
 
@@ -25,4 +26,7 @@ class Command:
         return
 
     def run(self) -> int:
+        return asyncio.run(self.run_async())
+
+    async def run_async(self) -> int:
         raise NotImplementedError

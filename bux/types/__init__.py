@@ -15,6 +15,7 @@ from ._sec_stats import SecurityStats
 from ._security import Security
 from ._tag import Tag
 from ._tag_matches import TagMatches
+from ._ws import WSQuote
 
 
 __all__ = [
@@ -35,4 +36,5 @@ __all__ = [
     'Security',
     'Tag',
     'TagMatches',
+    'WSQuote',
 ]

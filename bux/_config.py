@@ -8,7 +8,7 @@ class Config(NamedTuple):
     # api_url: str = 'https://api.getbux.com'
     # bnc_url: str = 'https://bnc.prod.getbux.com'
     stocks_url: str = 'https://stocks.prod.getbux.com'
-    # ws_url: str = 'wss://stocks.prod.getbux.com/rtf/1/subscriptions/me'
+    ws_url: str = 'wss://stocks.prod.getbux.com/rtf/1/subscriptions/me'
     headers: Mapping = MappingProxyType({
         'accept-language': 'en',
         'x-app-version': '4.7-7174',
