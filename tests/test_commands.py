@@ -32,3 +32,68 @@ def test_cli_info(token, record_resp):
     assert 'Nick Woodman' in result
     assert 'USD' in result
     assert '5d' in result
+
+
+def test_cli_me(token, record_resp):
+    result = _call('me', token=token)
+    assert '@' in result
+    assert '.' in result
+
+
+def test_cli_categories(token, record_resp):
+    result = _call('categories', token=token)
+    assert 'real-estate' in result
+    assert 'finance' in result
+
+
+def test_cli_inbox(token, record_resp):
+    result = _call('inbox', token=token)
+    assert 'Welcome to BUX Zero' in result
+    assert 'Create your account now' in result
+
+
+def test_cli_tags(token, record_resp):
+    result = _call('tags', 'NL', token=token)
+    assert 'communication' in result
+    assert 'real-estate' in result
+
+
+def test_cli_tag(token, record_resp):
+    result = _call('tag', 'NL', token=token)
+    assert 'PostNL' in result
+    assert 'NL0009739416' in result
+    assert 'PNL' in result
+
+
+def test_cli_gainers(token, record_resp):
+    result = _call('gainers', token=token)
+    assert '+' in result
+    assert '%' in result
+    assert '00' in result
+
+
+def test_cli_losers(token, record_resp):
+    result = _call('losers', token=token)
+    assert '-' in result
+    assert '%' in result
+    assert '00' in result
+
+
+def test_cli_new_stocks(token, record_resp):
+    result = _call('new-stocks', token=token)
+    assert 'ETF' in result
+    assert '00' in result
+
+
+def test_cli_following(token, record_resp):
+    result = _call('following', token=token)
+    assert '%' in result
+    assert '00' in result
+
+
+def test_cli_graph(token, record_resp):
+    result = _call('graph', 'US38268T1034', token=token)
+    assert '.' in result
+    assert ' ' in result
+    assert '-' in result
+    assert ':00' in result
