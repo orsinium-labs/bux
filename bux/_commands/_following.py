@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from .._user import UserAPI
+import bux
 from ._base import Command, register
 
 
@@ -13,7 +13,7 @@ class Following(Command):
         parser.add_argument('--token', required=True)
 
     def run(self) -> int:
-        api = UserAPI(token=self.args.token)
+        api = bux.UserAPI(token=self.args.token)
         following = api.following().requests()
         groups = (following.eqty, following.etf)
         for group in groups:

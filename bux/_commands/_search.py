@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from .._user import UserAPI
+import bux
 from ._base import Command, register
 
 
@@ -15,7 +15,7 @@ class Search(Command):
         parser.add_argument('query')
 
     def run(self) -> int:
-        api = UserAPI(token=self.args.token)
+        api = bux.UserAPI(token=self.args.token)
         matches = api.search(self.args.query).requests()
         groups = {
             'Equities': matches.eqty,

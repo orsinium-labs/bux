@@ -1,4 +1,4 @@
-from .._guest import GuestAPI
+import bux
 from ._base import Command, register
 
 
@@ -8,7 +8,7 @@ class GetToken(Command):
 
     def run(self) -> int:
         email = input('1. Enter email: ')
-        api = GuestAPI()
+        api = bux.GuestAPI()
         api.request_link(email).requests()
         print('2. Check your mailbox.')
         magic_link = input('3. Enter magic link: ')

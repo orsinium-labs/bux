@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from .._user import UserAPI
+import bux
 from ._base import Command, register
 
 
@@ -14,7 +14,7 @@ class Info(Command):
         parser.add_argument('id')
 
     def run(self) -> int:
-        api = UserAPI(token=self.args.token)
+        api = bux.UserAPI(token=self.args.token)
         info = api.security(self.args.id).presentation().requests()
         self.print(f'{info.security_type} [{info.ticker_code}] {info.name}')
         self.print(info.description)

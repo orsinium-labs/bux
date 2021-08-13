@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from .._user import UserAPI
+import bux
 from ._base import Command, register
 
 
@@ -14,7 +14,7 @@ class Categories(Command):
         parser.add_argument('--format', default='{id}')
 
     def run(self) -> int:
-        api = UserAPI(token=self.args.token)
+        api = bux.UserAPI(token=self.args.token)
         tags = api.securities().featured_tags().requests()
         for tag in tags:
             print(self.args.format.format(**tag))

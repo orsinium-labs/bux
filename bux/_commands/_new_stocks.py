@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from .._user import UserAPI
+import bux
 from ._base import Command, register
 
 
@@ -14,7 +14,7 @@ class NewStocks(Command):
         parser.add_argument('--format', default='{id} {securityType} [{tickerCode}] {name}')
 
     def run(self) -> int:
-        api = UserAPI(token=self.args.token)
+        api = bux.UserAPI(token=self.args.token)
         matches = api.securities().filter_new().requests()
         for stock in matches.stocks:
             print(self.args.format.format(**stock))

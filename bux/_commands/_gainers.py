@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from .._user import UserAPI
+import bux
 from ._base import Command, register
 
 
@@ -13,7 +13,7 @@ class Gainers(Command):
         parser.add_argument('--token', required=True)
 
     def run(self) -> int:
-        api = UserAPI(token=self.args.token)
+        api = bux.UserAPI(token=self.args.token)
         movers = api.securities().movers().requests()
         for stock in movers.gainers:
             gain = (stock.bid.amount / stock.closing_bid.amount - 1) * 100

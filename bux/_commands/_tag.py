@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from .._user import UserAPI
+import bux
 from ._base import Command, register
 
 
@@ -15,7 +15,7 @@ class Tag(Command):
         parser.add_argument('tag')
 
     def run(self) -> int:
-        api = UserAPI(token=self.args.token)
+        api = bux.UserAPI(token=self.args.token)
         matches = api.securities().filter_tag(self.args.tag).requests()
         for stock in matches.stocks:
             print(self.args.format.format(**stock))

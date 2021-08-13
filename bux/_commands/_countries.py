@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from .._user import UserAPI
+import bux
 from ._base import Command, register
 
 
@@ -14,7 +14,7 @@ class Countries(Command):
         parser.add_argument('--format', default='{name:16} {id}')
 
     def run(self) -> int:
-        api = UserAPI(token=self.args.token)
+        api = bux.UserAPI(token=self.args.token)
         countries = api.securities().countries().requests()
         for country in countries:
             self.print(self.args.format.format(**country))

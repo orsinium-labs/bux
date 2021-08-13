@@ -1,7 +1,6 @@
 from argparse import ArgumentParser
 
-from .. import types
-from .._ws import WebSocketAPI
+import bux
 from ._base import Command, register
 
 
@@ -16,10 +15,10 @@ class ListenQuotes(Command):
         parser.add_argument('ids', nargs='+')
 
     async def run_async(self) -> int:
-        async with WebSocketAPI(token=self.args.token) as api:
+        async with bux.WebSocketAPI(token=self.args.token) as api:
             topics = [api.topics.security(id) for id in self.args.ids]
             async with api.listen(*topics):
                 async for msg in api:
-                    if isinstance(msg, types.WSQuote):
+                    if isinstance(msg, bux.types.WSQuote):
                         print(self.args.format.format(id=msg.id, bid=msg.bid, ask=msg.offer))
         return 0
