@@ -25,7 +25,7 @@ class Search(Command):
         }
         for group_name, group in groups.items():
             if group:
-                print(f'{group_name}:')
+                self.print(f'{group_name}:')
             for stock in group:
-                print(self.args.format.format(**stock['security']))
+                self.print(self.args.format.format(**stock['security']))
         return 0

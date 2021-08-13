@@ -6,14 +6,17 @@ from vcr import VCR
 
 import bux
 
-
 ROOT = Path(__file__).parent.parent
-TOKEN = (ROOT / '.token').read_text().strip()
+
+
+@pytest.fixture(scope='session')
+def token():
+    return (ROOT / '.token').read_text().strip()
 
 
 @pytest.fixture
-def api() -> bux.UserAPI:
-    return bux.UserAPI(token=TOKEN)
+def api(token) -> bux.UserAPI:
+    return bux.UserAPI(token=token)
 
 
 @pytest.fixture

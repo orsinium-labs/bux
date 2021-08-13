@@ -17,5 +17,5 @@ class Countries(Command):
         api = UserAPI(token=self.args.token)
         countries = api.securities().countries().requests()
         for country in countries:
-            print(self.args.format.format(**country))
+            self.print(self.args.format.format(**country))
         return 0

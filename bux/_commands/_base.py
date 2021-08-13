@@ -30,3 +30,6 @@ class Command:
 
     async def run_async(self) -> int:
         raise NotImplementedError
+
+    def print(self, *args: str) -> None:
+        print(*args, file=self.stream)
