@@ -14,6 +14,7 @@ from ._new_stocks import NewStocks
 from ._search import Search
 from ._tag import Tag
 from ._tags import Tags
+from ._version import Version
 
 
 __all__ = [
@@ -34,4 +35,5 @@ __all__ = [
     'Search',
     'Tag',
     'Tags',
+    'Version',
 ]
