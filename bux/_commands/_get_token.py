@@ -10,8 +10,8 @@ class GetToken(Command):
         email = input('1. Enter email: ')
         api = bux.GuestAPI()
         api.request_link(email).requests()
-        print('2. Check your mailbox.')
+        self.print('2. Check your mailbox.')
         magic_link = input('3. Enter magic link: ')
         token = api.get_token(magic_link).requests()
-        print('Your token:', token)
+        self.print('Your token:', token)
         return 0

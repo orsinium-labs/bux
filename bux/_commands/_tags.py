@@ -18,5 +18,5 @@ class Tags(Command):
         api = bux.UserAPI(token=self.args.token)
         matches = api.securities().filter_tag(self.args.category).requests()
         for tag in matches.tags:
-            print(self.args.format.format(**tag))
+            self.print(self.args.format.format(**tag))
         return 0

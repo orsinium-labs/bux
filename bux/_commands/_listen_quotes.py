@@ -20,5 +20,5 @@ class ListenQuotes(Command):
             async with api.listen(*topics):
                 async for msg in api:
                     if isinstance(msg, bux.types.WSQuote):
-                        print(self.args.format.format(id=msg.id, bid=msg.bid, ask=msg.offer))
+                        self.print(self.args.format.format(id=msg.id, bid=msg.bid, ask=msg.offer))
         return 0

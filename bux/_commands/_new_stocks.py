@@ -17,5 +17,5 @@ class NewStocks(Command):
         api = bux.UserAPI(token=self.args.token)
         matches = api.securities().filter_new().requests()
         for stock in matches.stocks:
-            print(self.args.format.format(**stock))
+            self.print(self.args.format.format(**stock))
         return 0

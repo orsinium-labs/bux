@@ -16,8 +16,8 @@ class Inbox(Command):
         api = bux.UserAPI(token=self.args.token)
         messages = api.inbox().requests()
         for msg in messages:
-            print(f'{msg.time.date()} {msg.title}')
-            print(' ', msg.description)
+            self.print(f'{msg.time.date()} {msg.title}')
+            self.print(' ', msg.description)
             if msg.link:
-                print(' ', msg.link)
+                self.print(' ', msg.link)
         return 0

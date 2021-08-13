@@ -17,5 +17,5 @@ class Gainers(Command):
         movers = api.securities().movers().requests()
         for stock in movers.gainers:
             gain = (stock.bid.amount / stock.closing_bid.amount - 1) * 100
-            print(f'{stock.id} {stock.name:25} {gain:+.02f}%')
+            self.print(f'{stock.id} {stock.name:25} {gain:+.02f}%')
         return 0

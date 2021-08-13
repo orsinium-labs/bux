@@ -7,5 +7,5 @@ class Version(Command):
     name = 'version'
 
     def run(self) -> int:
-        print(bux.__version__)
+        self.print(bux.__version__)
         return 0

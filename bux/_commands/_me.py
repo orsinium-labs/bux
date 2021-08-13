@@ -15,5 +15,5 @@ class Me(Command):
     def run(self) -> int:
         api = bux.UserAPI(token=self.args.token)
         resp = api.personal_data().requests()
-        print(f'{resp.first_name} {resp.last_name} <{resp.email}>')
+        self.print(f'{resp.first_name} {resp.last_name} <{resp.email}>')
         return 0

@@ -20,7 +20,7 @@ class Following(Command):
             for sec in group:
                 gain = (sec.bid.amount / sec.closing_bid.amount - 1) * 100
                 gain_abs = sec.bid.amount - sec.closing_bid.amount
-                print(f'{sec.id} {sec.name:25} ', end='')
-                print(f'{gain:+.02f}% ({gain_abs:+.02f} {sec.bid.currency}) ', end='')
-                print(f'={sec.bid.amount} {sec.bid.currency}')
+                self.print(f'{sec.id} {sec.name:25} ', end='')
+                self.print(f'{gain:+.02f}% ({gain_abs:+.02f} {sec.bid.currency}) ', end='')
+                self.print(f'={sec.bid.amount} {sec.bid.currency}')
         return 0

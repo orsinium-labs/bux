@@ -17,5 +17,5 @@ class Categories(Command):
         api = bux.UserAPI(token=self.args.token)
         tags = api.securities().featured_tags().requests()
         for tag in tags:
-            print(self.args.format.format(**tag))
+            self.print(self.args.format.format(**tag))
         return 0
