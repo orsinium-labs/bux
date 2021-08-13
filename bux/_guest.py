@@ -33,8 +33,8 @@ class GuestAPI(NamedTuple):
             url=f'{self.config.auth_url}/authorize',
             headers=self._headers,
             data={
-                "credentials": {"token": magic_link},
-                "type": "magiclink",
+                'credentials': {'token': magic_link},
+                'type': 'magiclink',
             },
             on_json=callback,
         )

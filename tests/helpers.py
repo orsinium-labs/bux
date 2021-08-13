@@ -37,4 +37,4 @@ def check_has_all_getters(resp: bux.Response, exclude=(), unwrap=()):
                 continue
             if value not in values:
                 missed.append(name)
-    assert not missed, "Missed fields: " + ', '.join(missed)
+    assert not missed, 'Missed fields: ' + ', '.join(missed)

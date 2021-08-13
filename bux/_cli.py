@@ -6,7 +6,7 @@ from ._commands import commands
 
 
 def main(argv: List[str], stream: TextIO) -> int:
-    parser = ArgumentParser("python3 -m bux")
+    parser = ArgumentParser('python3 -m bux')
     subparsers = parser.add_subparsers()
     parser.set_defaults(cmd=None)
 

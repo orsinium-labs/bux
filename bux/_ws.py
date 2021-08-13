@@ -45,7 +45,7 @@ class WebSocketAPI:
 
     async def _send(self, **kwargs) -> None:
         if self.connection is None:
-            raise RuntimeError("WebSocketAPI is not connected")
+            raise RuntimeError('WebSocketAPI is not connected')
         await self.connection.send(json.dumps(kwargs))
 
     async def __aenter__(self: T) -> T:
@@ -83,7 +83,7 @@ class WebSocketAPI:
 
     async def get(self) -> types.WSResponse:
         if self.connection is None:
-            raise RuntimeError("WebSocketAPI is not connected")
+            raise RuntimeError('WebSocketAPI is not connected')
         raw = await self.connection.recv()
         msg = json.loads(raw)
         if msg['t'] == 'stocks.quote':

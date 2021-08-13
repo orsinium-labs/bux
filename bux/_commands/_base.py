@@ -3,8 +3,8 @@ from argparse import ArgumentParser
 from typing import Any, Dict, TextIO, Type, TypeVar
 
 
-commands: Dict[str, Type["Command"]] = dict()
-T = TypeVar("T", bound=Type["Command"])
+commands: Dict[str, Type['Command']] = dict()
+T = TypeVar('T', bound=Type['Command'])
 
 
 def register(cmd: T) -> T:
