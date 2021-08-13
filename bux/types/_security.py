@@ -1,6 +1,7 @@
 from typing import Optional
-from ._response import Response
+
 from ._price import Price
+from ._response import Response
 
 
 class Security(Response):

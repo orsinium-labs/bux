@@ -1,7 +1,8 @@
 from typing import List, Optional
+
 from ._market_hours import MarketHours
-from ._tag import Tag
 from ._security import SecurityNested
+from ._tag import Tag
 
 
 class SecurityPresentation(SecurityNested):

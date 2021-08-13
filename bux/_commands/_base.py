@@ -1,5 +1,5 @@
-from argparse import ArgumentParser
 import asyncio
+from argparse import ArgumentParser
 from typing import Any, Dict, TextIO, Type, TypeVar
 
 

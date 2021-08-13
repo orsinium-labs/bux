@@ -1,8 +1,8 @@
 from pathlib import Path
 
 import pytest
-from vcr import VCR
 from _pytest.fixtures import FixtureRequest
+from vcr import VCR
 
 import bux
 

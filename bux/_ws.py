@@ -1,11 +1,13 @@
-from typing import NewType, Optional, Type, TypeVar
+import json
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
+from typing import NewType, Optional, Type, TypeVar
 
-from ._config import Config
-import json
 from websockets.legacy.client import Connect, WebSocketClientProtocol
+
 from . import types
+from ._config import Config
+
 
 T = TypeVar('T', bound='WebSocketAPI')
 Topic = NewType('Topic', str)

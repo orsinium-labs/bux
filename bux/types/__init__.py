@@ -15,7 +15,7 @@ from ._sec_stats import SecurityStats
 from ._security import Security
 from ._tag import Tag
 from ._tag_matches import TagMatches
-from ._ws import WSResponse, WSQuote
+from ._ws import WSQuote, WSResponse
 
 
 __all__ = [

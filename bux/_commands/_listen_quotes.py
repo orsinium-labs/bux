@@ -1,7 +1,8 @@
 from argparse import ArgumentParser
+
+from .. import types
 from .._ws import WebSocketAPI
 from ._base import Command, register
-from .. import types
 
 
 @register

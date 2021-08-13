@@ -1,10 +1,10 @@
 from typing import Dict, List, NamedTuple
 
+from . import types
 from ._config import Config
 from ._request import Request
-from ._security import Security
 from ._securities import Securities
-from . import types
+from ._security import Security
 
 
 class UserAPI(NamedTuple):

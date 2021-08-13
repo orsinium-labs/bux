@@ -1,8 +1,8 @@
 
-from typing import List, TYPE_CHECKING, NamedTuple
+from typing import TYPE_CHECKING, List, NamedTuple
 
-from ._request import Request
 from . import types
+from ._request import Request
 
 
 if TYPE_CHECKING:

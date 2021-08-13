@@ -1,9 +1,9 @@
 from ._base import Command, commands
+from ._categories import Categories
+from ._countries import Countries
 from ._following import Following
 from ._gainers import Gainers
 from ._get_token import GetToken
-from ._categories import Categories
-from ._countries import Countries
 from ._graph import Graph
 from ._inbox import Inbox
 from ._info import Info

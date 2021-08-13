@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+
 from .._user import UserAPI
 from ._base import Command, register
 
