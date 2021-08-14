@@ -116,5 +116,5 @@ class SecurityStats(Response):
         return self['revenue']
 
     @property
-    def security_id(self) -> str:
+    def id(self) -> str:
         return self['securityId']

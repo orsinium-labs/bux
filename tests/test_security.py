@@ -34,7 +34,7 @@ def test_security_stats(api: bux.UserAPI, record_resp):
     }
     assert set(resp) == fields
     assert resp.market_cap.amount >= 10 ** 9
-    assert resp.security_id == 'NL0011540547'
+    assert resp.id == 'NL0011540547'
     check_has_all_getters(resp)
 
 
