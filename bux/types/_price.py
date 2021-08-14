@@ -15,3 +15,6 @@ class Price(Response):
     @property
     def decimals(self) -> int:
         return self['decimals']
+
+    def __str__(self) -> str:
+        return f'{self.amount} {self.currency}'

@@ -31,5 +31,5 @@ class Command:
     async def run_async(self) -> int:
         raise NotImplementedError
 
-    def print(self, *args: str, end='\n') -> None:
-        print(*args, file=self.stream, end=end)
+    def print(self, *args: str, end='\n', sep=' ') -> None:
+        print(*args, file=self.stream, end=end, sep=sep)

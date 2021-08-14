@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+from textwrap import wrap
 
 import bux
 from ._base import Command, register
@@ -16,14 +17,28 @@ class Info(Command):
     def run(self) -> int:
         api = bux.UserAPI(token=self.args.token)
         info = api.security(self.args.id).presentation().requests()
-        self.print(f'{info.security_type} [{info.ticker_code}] {info.name}')
-        self.print(info.description)
-        if info.key_information_url:
-            self.print(info.key_information_url)
-        self.print(' '.join(f'#{tag.id}' for tag in info.tags))
-        self.print()
+        self.print(f'{info.security_type} [{info.ticker_code}] {info.name}\n')
+        self.print(*wrap(info.description, width=80), sep='\n', end='\n\n')
+        self.print(' '.join(f'#{tag.id}' for tag in info.tags), end='\n\n')
 
-        self.print(f'bid: {info.bid.amount} {info.bid.currency}')
-        self.print(f'ask: {info.offer.amount} {info.offer.currency}')
-        self.print('graph types:', ', '.join(info.graph_types))
+        table = {
+            'bid':          info.bid,
+            'opening bid':  info.opening_bid,
+            'closing bid':  info.closing_bid,
+            'ask':          info.offer,
+            'graph types':  ', '.join(info.graph_types),
+            'today low':    info.today_low,
+            'today high':   info.today_high,
+            'country':      info.country_code,
+            'exchange':     info.exchange_id,
+            'status':       info.status,
+            'following?':   info.following,
+            'more':         info.key_information_url,
+        }
+        width = max(len(key) for key in table) + 1
+        for field, value in table.items():
+            if value is None:
+                continue
+            self.print(f'{field.ljust(width)} {value}')
+
         return 0

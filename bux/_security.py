@@ -2,7 +2,7 @@
 from typing import TYPE_CHECKING, NamedTuple
 
 from ._request import Request
-from .types import SecurityGraph, SecurityPresentation, SecurityStats
+from . import types
 
 
 if TYPE_CHECKING:
@@ -29,23 +29,35 @@ class Security(NamedTuple):
             on_status=lambda status: status == 202,
         )
 
-    def presentation(self) -> Request[SecurityPresentation]:
+    def presentation(self) -> Request[types.SecurityPresentation]:
         return Request(
             url=f'{self.api.config.stocks_url}/market-presentation/13/product/securities/{self.id}',
             headers=self.api._headers,
-            on_json=SecurityPresentation,
+            on_json=types.SecurityPresentation,
         )
 
-    def stats(self) -> Request[SecurityStats]:
+    def stats(self) -> Request[types.SecurityStats]:
         return Request(
             url=f'{self.api.config.stocks_url}/product-stats/13/stats/{self.id}',
             headers=self.api._headers,
-            on_json=SecurityStats,
+            on_json=types.SecurityStats,
         )
 
-    def graph(self, type: str = '1d') -> Request[SecurityGraph]:
+    def graph(self, type: str = '1d') -> Request[types.SecurityGraph]:
         return Request(
             url=f'{self.api.config.stocks_url}/market-query/13/securities/{self.id}/graph/price?type={type}',
             headers=self.api._headers,
-            on_json=SecurityGraph,
+            on_json=types.SecurityGraph,
+        )
+
+    def orders_config(self, direction: str = 'BUY') -> Request[types.SecurityGraph]:
+        assert direction in ('BUY', 'SELL')
+        return Request(
+            url=f'{self.api.config.stocks_url}/portfolio-query/13/users/me/ordersConfiguration',
+            params=dict(
+                isin=self.id,
+                direction=direction,
+            ),
+            headers=self.api._headers,
+            on_json=types.SecurityGraph,
         )
