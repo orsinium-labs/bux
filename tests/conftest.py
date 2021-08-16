@@ -14,6 +14,11 @@ def token():
     return (ROOT / '.token').read_text().strip()
 
 
+@pytest.fixture(scope='session')
+def pin():
+    return (ROOT / '.pin').read_text().strip()
+
+
 @pytest.fixture
 def api(token) -> bux.UserAPI:
     return bux.UserAPI(token=token)

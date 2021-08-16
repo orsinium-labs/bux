@@ -19,6 +19,23 @@ class UserAPI(NamedTuple):
             **self.config.headers,
         }
 
+    def authorize(self, pin: str) -> Request[str]:
+        """Request access token.
+
+        Access token is not currently required to work with any endpoints.
+        Expires after 10 minutes.
+        `pin` is the PIN code that the app asks you on log in.
+        """
+        assert pin.isdigit()
+        assert len(pin) == 5
+        return Request(
+            method='POST',
+            url=f'{self.config.stocks_url}/authorization/13/users/me/authorize',
+            body=pin.encode(),
+            headers=self._headers,
+            on_json=lambda x: x['access_token'],
+        )
+
     def me(self) -> Request[types.Me]:
         return Request(
             url=f'{self.config.stocks_url}/portfolio-query/13/users/me',

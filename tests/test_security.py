@@ -68,3 +68,10 @@ def test_security_presentation_etf(api: bux.UserAPI, record_resp):
     )
     check_has_all_getters(resp.market_hours)
     check_has_all_getters(resp.tags[0])
+
+
+def test_security_orders_config(api: bux.UserAPI):
+    resp = api.security('NL0009272749').orders_config().requests()
+    fields = {''}
+    assert set(resp) == fields
+    check_has_all_getters(resp)

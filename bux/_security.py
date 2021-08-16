@@ -50,7 +50,7 @@ class Security(NamedTuple):
             on_json=types.SecurityGraph,
         )
 
-    def orders_config(self, direction: str = 'BUY') -> Request[types.SecurityGraph]:
+    def orders_config(self, *, direction: str = 'BUY') -> Request[types.OrdersConfig]:
         assert direction in ('BUY', 'SELL')
         return Request(
             url=f'{self.api.config.stocks_url}/portfolio-query/13/users/me/ordersConfiguration',
@@ -59,5 +59,5 @@ class Security(NamedTuple):
                 direction=direction,
             ),
             headers=self.api._headers,
-            on_json=types.SecurityGraph,
+            on_json=types.OrdersConfig,
         )

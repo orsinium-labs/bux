@@ -1,6 +1,7 @@
 .*_cache/
 __pycache__/
 /.token
+/.pin
 /dist/
 /htmlcov/
 /.coverage

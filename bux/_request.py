@@ -21,6 +21,7 @@ class Request(Generic[T]):
     headers: Dict[str, str]
 
     method: str = 'GET'
+    body: Optional[bytes] = None
     data: Optional[Dict[str, Any]] = None
     params: Optional[Dict[str, Any]] = None
     on_json: Optional[Callable[[Any], T]] = None
@@ -32,6 +33,7 @@ class Request(Generic[T]):
         response = requests.request(
             method=self.method,
             url=self.url,
+            data=self.body,
             json=self.data,
             params=self.params,
             headers=self.headers,
@@ -50,6 +52,7 @@ class Request(Generic[T]):
         response = httpx.request(
             method=self.method,
             url=self.url,
+            content=self.body,  # type: ignore[arg-type]
             json=self.data,
             params=self.params,
             headers=self.headers,
@@ -69,6 +72,7 @@ class Request(Generic[T]):
             response = await session.request(
                 method=self.method,
                 url=self.url,
+                data=self.body,
                 json=self.data,
                 params=self.params,
                 headers=self.headers,
