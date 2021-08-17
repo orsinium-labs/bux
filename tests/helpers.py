@@ -37,6 +37,9 @@ def check_has_all_getters(resp: bux.Response, exclude=(), unwrap=()):
             continue
         if name in unwrap:
             continue
+        if isinstance(value, str) and value.isdigit():
+            if int(value) in values:
+                continue
         if value not in values:
             missed.append(name)
     for group in unwrap:

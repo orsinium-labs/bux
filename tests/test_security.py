@@ -81,7 +81,7 @@ def test_security_presentation_etf(api: bux.UserAPI, record_resp):
     check_has_all_getters(resp.tags[0])
 
 
-def _test_security_orders_config(api: bux.UserAPI, record_resp):
+def test_security_orders_config(api: bux.UserAPI, record_resp):
     resp = api.security('NL0009272749').orders_config().requests()
     fields = {
         'availableCash',
@@ -95,4 +95,4 @@ def _test_security_orders_config(api: bux.UserAPI, record_resp):
         'valueLimit',
     }
     assert set(resp) == fields
-    check_has_all_getters(resp)
+    check_has_all_getters(resp, exclude={'forexQuote', 'clientOrderTypes'})
