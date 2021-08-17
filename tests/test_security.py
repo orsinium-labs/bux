@@ -104,3 +104,26 @@ def test_security_orders_config(api: bux.UserAPI, record_resp):
             maybe={'expirationDate'},
         )
         check_has_all_getters(order_type)
+        for trade_type in order_type.trading_types:
+            check_has_fields(
+                trade_type,
+                must={
+                    'tradingType',
+                    'fee',
+                    'limitCollar',
+                    'fractionalRules',
+                    'limitRange',
+                    'tickSizeRegime',
+                    'collar',
+                },
+            )
+            check_has_all_getters(
+                trade_type,
+                exclude={
+                    'fractionalRules',
+                    'collar',
+                    'limitRange',
+                    'limitCollar',
+                    'tickSizeRegime',
+                },
+            )

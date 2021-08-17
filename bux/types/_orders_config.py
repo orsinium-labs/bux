@@ -14,8 +14,6 @@ class TradingType(Response):
     def fee(self) -> Price:
         return Price(self['fee'])
 
-    ...
-
 
 class ExecutionWindow(Response):
     @property
