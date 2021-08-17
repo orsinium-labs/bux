@@ -2,6 +2,7 @@ from argparse import ArgumentParser
 from textwrap import wrap
 
 import bux
+
 from ._base import Command, register
 
 

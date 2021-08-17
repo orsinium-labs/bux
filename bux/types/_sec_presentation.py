@@ -1,9 +1,9 @@
 from typing import List, Optional
 
 from ._market_hours import MarketHours
+from ._position import Position
 from ._security import SecurityNested
 from ._tag import Tag
-from ._position import Position
 
 
 class SecurityPresentation(SecurityNested):

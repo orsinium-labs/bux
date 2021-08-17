@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 
 import bux
+
 from ._base import Command, register
 
 

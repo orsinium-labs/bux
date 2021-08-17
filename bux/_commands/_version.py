@@ -1,4 +1,5 @@
 import bux
+
 from ._base import Command, register
 
 

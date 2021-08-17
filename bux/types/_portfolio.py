@@ -1,7 +1,7 @@
 from typing import Any, Dict, List, Optional
 
-from ._price import Price
 from ._position import Position
+from ._price import Price
 from ._response import Response
 
 

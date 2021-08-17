@@ -1,4 +1,5 @@
 from typing import Any, Dict
+
 from ._price import Price
 from ._response import Response
 
