@@ -3,7 +3,6 @@ from typing import Mapping, NamedTuple
 
 
 class Config(NamedTuple):
-    token: str = 'ODQ3MzYyMzAxMDpaTUhaM1RZT1pIVUxFRlhMUDRRQ1BIV0k1RDNWQVpNNw=='
     auth_url: str = 'https://auth.getbux.com/api/3'
     # api_url: str = 'https://api.getbux.com'
     # bnc_url: str = 'https://bnc.prod.getbux.com'
