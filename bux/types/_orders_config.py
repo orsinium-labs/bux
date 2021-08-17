@@ -1,10 +1,49 @@
-from typing import List
+from typing import List, Optional
 from ._response import Response
 from ._price import Price
+from datetime import datetime
+
+
+class TradingType(Response):
+    @property
+    def type(self) -> str:
+        return self['tradingType']
+
+    @property
+    def fee(self) -> Price:
+        return Price(self['fee'])
+
+    ...
+
+
+class ExecutionWindow(Response):
+    @property
+    def start(self) -> datetime:
+        return datetime.fromtimestamp(self['windowStart'] / 1000)
+
+    @property
+    def end(self) -> datetime:
+        return datetime.fromtimestamp(self['windowEnd'] / 1000)
 
 
 class OrderType(Response):
-    pass
+    @property
+    def displayed_type(self) -> str:
+        return self['displayedType']
+
+    @property
+    def expiration_date(self) -> Optional[datetime]:
+        if 'expirationDate' not in self:
+            return None
+        return datetime.fromtimestamp(self['expirationDate'] / 1000)
+
+    @property
+    def execution_windows(self) -> List[ExecutionWindow]:
+        return [ExecutionWindow(w) for w in self['executionWindows']]
+
+    @property
+    def trading_types(self) -> List[TradingType]:
+        return [TradingType(w) for w in self['tradingTypes']]
 
 
 class OrdersConfig(Response):

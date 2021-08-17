@@ -96,3 +96,11 @@ def test_security_orders_config(api: bux.UserAPI, record_resp):
     }
     assert set(resp) == fields
     check_has_all_getters(resp, exclude={'forexQuote', 'clientOrderTypes'})
+
+    for order_type in resp.order_types:
+        check_has_fields(
+            order_type,
+            must={'executionWindows', 'displayedType', 'tradingTypes'},
+            maybe={'expirationDate'},
+        )
+        check_has_all_getters(order_type)
