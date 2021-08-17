@@ -1,53 +1,14 @@
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 from ._price import Price
+from ._position import Position
 from ._response import Response
 
 
-class Position(Response):
+class PortfolioPosition(Position):
     @property
-    def buy_amount(self) -> Price:
-        return Price(self['position']['allTimeChanges']['buyAmount'])
-
-    @property
-    def cash_change(self) -> Price:
-        return Price(self['position']['allTimeChanges']['cashChange'])
-
-    @property
-    def sell_amount(self) -> Price:
-        return Price(self['position']['allTimeChanges']['sellAmount'])
-
-    @property
-    def average_purchase_price(self) -> Price:
-        return Price(self['position']['averagePurchasePrice'])
-
-    @property
-    def average_purchase_price_in_user_currency(self) -> Price:
-        return Price(self['position']['averagePurchasePriceInUserCurrency'])
-
-    @property
-    def investment_amount(self) -> Price:
-        return Price(self['position']['investmentAmount'])
-
-    @property
-    def previous_closing_amount(self) -> Price:
-        return Price(self['position']['previousClosingAmount'])
-
-    @property
-    def quantity(self) -> int:
-        return int(self['position']['quantity'])
-
-    @property
-    def today_quantity(self) -> int:
-        return int(self['position']['todayPerformance']['quantity'])
-
-    @property
-    def change_amount(self) -> Price:
-        return Price(self['position']['todayPerformance']['changeAmount'])
-
-    @property
-    def intra_day_trades_amount(self) -> Price:
-        return Price(self['position']['todayPerformance']['intraDayTradesAmount'])
+    def _pos(self) -> Dict[str, Any]:
+        return self['position']
 
     @property
     def id(self) -> str:
@@ -64,6 +25,18 @@ class Position(Response):
     @property
     def offer(self) -> Price:
         return Price(self['security']['offer'])
+
+    @property
+    def closing_bid(self) -> Optional[Price]:
+        if 'closingBid' not in self['security']:
+            return None
+        return Price(self['security']['closingBid'])
+
+    @property
+    def bid(self) -> Optional[Price]:
+        if 'bid' not in self['security']:
+            return None
+        return Price(self['security']['bid'])
 
 
 class Portfolio(Response):
@@ -112,9 +85,9 @@ class Portfolio(Response):
         return Response(self['orders'])
 
     @property
-    def positions_eqty(self) -> List[Position]:
-        return [Position(p) for p in self['positions']['EQTY']]
+    def positions_eqty(self) -> List[PortfolioPosition]:
+        return [PortfolioPosition(p) for p in self['positions']['EQTY']]
 
     @property
-    def positions_etf(self) -> List[Position]:
-        return [Position(p) for p in self['positions']['ETF']]
+    def positions_etf(self) -> List[PortfolioPosition]:
+        return [PortfolioPosition(p) for p in self['positions']['ETF']]

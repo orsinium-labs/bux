@@ -1,6 +1,6 @@
 import bux
 
-from .helpers import check_has_all_getters
+from .helpers import check_has_all_getters, check_has_fields
 
 
 def test_securities_movers(api: bux.UserAPI, record_resp):
@@ -112,7 +112,6 @@ def test_securities_filter_tag(api: bux.UserAPI, record_resp):
         'bid',
         'closingBid',
         'countryCode',
-        'description',
         'id',
         'name',
         'offer',
@@ -123,7 +122,7 @@ def test_securities_filter_tag(api: bux.UserAPI, record_resp):
     }
     assert len(resp.stocks) > 10
     for stock in resp.stocks:
-        assert set(stock) == fields
+        check_has_fields(stock, fields, maybe={'description'})
         check_has_all_getters(stock, unwrap={'stats'})
 
 

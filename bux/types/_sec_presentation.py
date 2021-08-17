@@ -3,6 +3,7 @@ from typing import List, Optional
 from ._market_hours import MarketHours
 from ._security import SecurityNested
 from ._tag import Tag
+from ._position import Position
 
 
 class SecurityPresentation(SecurityNested):
@@ -29,3 +30,9 @@ class SecurityPresentation(SecurityNested):
     @property
     def key_information_url(self) -> Optional[str]:
         return self._sec.get('keyInformationURL')
+
+    @property
+    def position(self) -> Optional[Position]:
+        if 'position' not in self:
+            return None
+        return Position(self['position'])

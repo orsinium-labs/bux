@@ -1,7 +1,17 @@
 from datetime import datetime
 from decimal import Decimal
+from typing import Optional
 
 import bux
+
+
+def check_has_fields(real: dict, must: set, maybe: Optional[set] = None):
+    actual = set(real) - (maybe or set())
+    diff = actual - must
+    assert not diff, f'Unexpected fields: {diff}'
+    diff = must - actual
+    assert not diff, f'Missed fields: {diff}'
+    assert actual == must
 
 
 def check_has_all_getters(resp: bux.Response, exclude=(), unwrap=()):

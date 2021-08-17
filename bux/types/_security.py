@@ -28,8 +28,8 @@ class Security(Response):
         return Price(self._sec['openingBid'])
 
     @property
-    def description(self) -> str:
-        return self._sec['description']
+    def description(self) -> Optional[str]:
+        return self._sec.get('description')
 
     @property
     def id(self) -> str:
