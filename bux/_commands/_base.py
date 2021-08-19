@@ -33,3 +33,10 @@ class Command:
 
     def print(self, *args: str, end='\n', sep=' ') -> None:
         print(*args, file=self.stream, end=end, sep=sep)
+
+    def print_table(self, table: Dict[str, Any]) -> None:
+        width = max(len(key) for key in table) + 1
+        for field, value in table.items():
+            if value is None:
+                continue
+            self.print(f'{field.ljust(width)} {value}')

@@ -7,7 +7,7 @@ from ._response import Response
 
 class TradingType(Response):
     @property
-    def type(self) -> str:
+    def name(self) -> str:
         return self['tradingType']
 
     @property
@@ -27,7 +27,7 @@ class ExecutionWindow(Response):
 
 class OrderType(Response):
     @property
-    def displayed_type(self) -> str:
+    def name(self) -> str:
         return self['displayedType']
 
     @property
@@ -43,6 +43,11 @@ class OrderType(Response):
     @property
     def trading_types(self) -> List[TradingType]:
         return [TradingType(w) for w in self['tradingTypes']]
+
+    @property
+    def fee(self) -> Price:
+        assert len(self.trading_types) == 1
+        return self.trading_types[0].fee
 
 
 class OrdersConfig(Response):

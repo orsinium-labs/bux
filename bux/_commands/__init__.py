@@ -11,6 +11,7 @@ from ._listen_quotes import ListenQuotes
 from ._losers import Losers
 from ._me import Me
 from ._new_stocks import NewStocks
+from ._orders_config import OrdersConfig
 from ._search import Search
 from ._tag import Tag
 from ._tags import Tags
@@ -32,6 +33,7 @@ __all__ = [
     'Losers',
     'Me',
     'NewStocks',
+    'OrdersConfig',
     'Search',
     'Tag',
     'Tags',

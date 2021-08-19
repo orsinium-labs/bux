@@ -98,3 +98,14 @@ def test_cli_graph(token, record_resp):
     assert ' ' in result
     assert '-' in result
     assert ':00' in result
+
+
+def test_cli_orders_config(token, record_resp):
+    result = _call('orders-config', 'NL0011540547', token=token)
+    assert 'BASIC:' in result
+    assert 'MARKET:' in result
+    assert 'LIMIT_ORDER_1D:' in result
+    assert 'expires' in result
+    assert 'fee 1.00 EUR' in result
+    assert '09:00:00' in result
+    assert '17:30:00' in result
