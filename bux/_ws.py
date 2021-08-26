@@ -88,6 +88,8 @@ class WebSocketAPI:
         msg = json.loads(raw)
         if msg['t'] == 'stocks.quote':
             return types.WSQuote(msg['body'])
+        if msg['t'] == 'order.update':
+            return types.WSOrder(msg['body']['stockOrder']['order'])
         return types.WSResponse(msg['body'])
 
     @asynccontextmanager

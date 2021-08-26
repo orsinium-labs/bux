@@ -143,12 +143,15 @@ def test_securities_filter_new(api: bux.UserAPI, record_resp):
         'id',
         'name',
         'offer',
-        'openingBid',
         'securityType',
         'stats',
         'tickerCode',
     }
     assert len(resp.stocks) > 10
     for stock in resp.stocks:
-        assert set(stock) - {'countryCode'} == fields
+        check_has_fields(
+            stock,
+            must=fields,
+            maybe={'countryCode', 'openingBid'},
+        )
         check_has_all_getters(stock, unwrap={'stats'})

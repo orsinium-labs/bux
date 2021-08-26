@@ -18,6 +18,7 @@ from ._security import Security
 from ._tag import Tag
 from ._tag_matches import TagMatches
 from ._ws import WSQuote, WSResponse
+from ._ws_order import WSOrder
 
 
 __all__ = [
@@ -40,6 +41,7 @@ __all__ = [
     'Security',
     'Tag',
     'TagMatches',
+    'WSOrder',
     'WSResponse',
     'WSQuote',
 ]
