@@ -1,4 +1,4 @@
-"""Unofficial SDK for BUX Zero API.
+"""Unofficial SDK and CLI for BUX Zero API.
 
 https://getbux.com/
 """
@@ -11,7 +11,7 @@ from ._ws import WebSocketAPI
 from .types import Response
 
 
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 __all__ = [
     'GuestAPI',
     'HTTPError',
