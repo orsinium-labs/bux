@@ -76,6 +76,7 @@ class Request(Generic[T]):
                 json=self.data,
                 params=self.params,
                 headers=self.headers,
+                timeout=10,
             )
         if response.status >= 300:
             raise HTTPError(response.status, await response.text())

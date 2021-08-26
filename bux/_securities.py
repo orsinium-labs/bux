@@ -65,7 +65,7 @@ class Securities(NamedTuple):
         return Request(
             url=f'{self._url}/filter/tag/{tag}',
             headers=self.api._headers,
-            params=dict(availableCashFilterEnabled=available_cash),
+            params=dict(availableCashFilterEnabled='true' if available_cash else 'false'),
             on_json=types.TagMatches,
         )
 
