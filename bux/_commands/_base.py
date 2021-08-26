@@ -26,10 +26,10 @@ class Command:
         return
 
     def run(self) -> int:
-        return asyncio.run(self.run_async())
+        return asyncio.run(self.run_async())    # pragma: no cover
 
     async def run_async(self) -> int:
-        raise NotImplementedError
+        raise NotImplementedError    # pragma: no cover
 
     def print(self, *args: str, end='\n', sep=' ') -> None:
         print(*args, file=self.stream, end=end, sep=sep)

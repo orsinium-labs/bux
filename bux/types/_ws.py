@@ -6,7 +6,7 @@ class WSResponse(Response):
     pass
 
 
-class WSQuote(WSResponse):
+class WSQuote(WSResponse):  # pragma: no cover
     @property
     def id(self) -> str:
         return self['id']

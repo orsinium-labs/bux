@@ -17,7 +17,7 @@ def main(argv: List[str], stream: TextIO) -> int:
     args = parser.parse_args(argv)
 
     cmd_class = args.cmd
-    if cmd_class is None:
+    if cmd_class is None:    # pragma: no cover
         parser.print_help()
         return 1
     cmd = cmd_class(args=args, stream=stream)

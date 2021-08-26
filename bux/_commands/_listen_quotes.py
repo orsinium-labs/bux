@@ -15,7 +15,7 @@ class ListenQuotes(Command):
         parser.add_argument('--format', default='{id} {bid.amount:>8} {ask.amount:>8} {ask.currency}')
         parser.add_argument('ids', nargs='+')
 
-    async def run_async(self) -> int:
+    async def run_async(self) -> int:  # pragma: no cover
         async with bux.WebSocketAPI(token=self.args.token) as api:
             topics = [api.topics.security(id) for id in self.args.ids]
             async with api.listen(*topics):

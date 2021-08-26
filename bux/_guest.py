@@ -7,7 +7,7 @@ from ._request import Request
 class GuestAPI(NamedTuple):
     config: Config = Config()
 
-    def request_link(self, email: str) -> Request[bool]:
+    def request_link(self, email: str) -> Request[bool]:  # pragma: no cover
         return Request(
             method='POST',
             url=f'{self.config.auth_url}/magic-link',
@@ -19,7 +19,7 @@ class GuestAPI(NamedTuple):
             on_status=lambda status: status == 202,
         )
 
-    def get_token(self, magic_link: str) -> Request[str]:
+    def get_token(self, magic_link: str) -> Request[str]:  # pragma: no cover
         magic_link = magic_link.split('/')[-1]
         return Request(
             method='POST',

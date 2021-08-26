@@ -19,7 +19,7 @@ class UserAPI(NamedTuple):
             **self.config.headers,
         }
 
-    def authorize(self, pin: str) -> Request[str]:
+    def authorize(self, pin: str) -> Request[str]:  # pragma: no cover
         """Request access token.
 
         Access token is not currently required to work with any endpoints.

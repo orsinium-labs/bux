@@ -16,7 +16,7 @@ class OrderState(Enum):
     REJECTED = 'REJECTED'
 
 
-class WSOrder(Order, WSResponse):
+class WSOrder(Order, WSResponse):  # pragma: no cover
     @property
     def name(self) -> str:
         """Example: `S&P 500 Index ETF (Vanguard)`

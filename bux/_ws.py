@@ -29,15 +29,15 @@ class Topics:
 
     @staticmethod
     def forex(ticker: str) -> Topic:
-        return Topic(f'forex.quote.{ticker}')
+        return Topic(f'forex.quote.{ticker}')   # pragma: no cover
 
     @staticmethod
     def security(ticker: str) -> Topic:
-        return Topic(f'stocks.quote.{ticker}')
+        return Topic(f'stocks.quote.{ticker}')  # pragma: no cover
 
 
 @dataclass
-class WebSocketAPI:
+class WebSocketAPI:   # pragma: no cover
     token: str
     config: Config = Config()
     connection: Optional[WebSocketClientProtocol] = None

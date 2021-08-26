@@ -7,7 +7,7 @@ from ._base import Command, register
 class GetToken(Command):
     name = 'get-token'
 
-    def run(self) -> int:
+    def run(self) -> int:  # pragma: no cover
         email = input('1. Enter email: ')
         api = bux.GuestAPI()
         api.request_link(email).requests()
