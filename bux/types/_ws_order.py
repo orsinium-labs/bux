@@ -1,8 +1,8 @@
 from enum import Enum
 
-from ._ws import WSResponse
 from ._order import Order
 from ._price import Price
+from ._ws import WSResponse
 
 
 class OrderState(Enum):

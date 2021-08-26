@@ -1,9 +1,9 @@
 from datetime import datetime
 from typing import List
 
-from ._response import Response
 from ._orders_config import ExecutionWindow
 from ._price import Price
+from ._response import Response
 
 
 class Order(Response):  # pragma: no cover

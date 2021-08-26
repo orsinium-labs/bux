@@ -1,9 +1,7 @@
 import json
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
-from typing import NewType, Optional, Type, TypeVar
-
-from websockets.legacy.client import Connect, WebSocketClientProtocol
+from typing import TYPE_CHECKING, NewType, Optional, Type, TypeVar
 
 from . import types
 from ._config import Config
@@ -11,6 +9,10 @@ from ._config import Config
 
 T = TypeVar('T', bound='WebSocketAPI')
 Topic = NewType('Topic', str)
+
+
+if TYPE_CHECKING:
+    from websockets.legacy.client import WebSocketClientProtocol
 
 
 class Topics:
@@ -40,7 +42,7 @@ class Topics:
 class WebSocketAPI:   # pragma: no cover
     token: str
     config: Config = Config()
-    connection: Optional[WebSocketClientProtocol] = None
+    connection: Optional['WebSocketClientProtocol'] = None
     topics: Type[Topics] = Topics
 
     async def _send(self, **kwargs) -> None:
@@ -49,6 +51,8 @@ class WebSocketAPI:   # pragma: no cover
         await self.connection.send(json.dumps(kwargs))
 
     async def __aenter__(self: T) -> T:
+        from websockets.legacy.client import Connect
+
         self.connection = await Connect(
             uri=self.config.ws_url,
             extra_headers={

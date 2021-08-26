@@ -1,6 +1,6 @@
 # Bux
 
-Python SDK for BUX Zero ([getbux.com](https://getbux.com/)).
+Python SDK and CLI for BUX Zero ([getbux.com](https://getbux.com/)).
 
 Features:
 
@@ -43,7 +43,22 @@ python3 -m bux get-token
 
 Keep this token in secret! This is all you need to get full access to the API.
 
-## Usage
+## CLI Usage
+
+Show available commands:
+
+```bash
+python3 -m bux --help
+```
+
+Every command requires `--token` argument. It's up to you how you store it. For example, in a file:
+
+```bash
+echo "MY_TOKEN" > .token
+python3.9 -m bux info --token $(cat .token) NL0011540547
+```
+
+## SDK Usage
 
 ```python
 import bux
@@ -54,3 +69,5 @@ me = api.me().requests()
 ```
 
 Every API endpoint is represented as a method of `UserAPI`. Every such method returns a `bux.Request` method which provides a method for every supported networking library (`requests`, `httpx`, and so on). Just call this method and you get the result. The result is represented as `bux.Response` object which is just a `dict` with some additional type-safe properties.
+
+See the source code for CLI commands ([bux/_commands](./bux/_commands)) for the real-world usage examples.
