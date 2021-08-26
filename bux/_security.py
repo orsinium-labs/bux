@@ -72,11 +72,11 @@ class Security(NamedTuple):
         assert direction in ('BUY', 'SELL')
         assert type in ('BASIC', 'MARKET', 'LIMIT_ORDER_1D')
         if fee is None:
-            fee = types.Price({
-                "amount": "0.00",
-                "currency": "EUR",
-                "decimals": 2
-            })
+            fee = types.Price(dict(
+                amount='0.00',
+                currency='EUR',
+                decimals=2,
+            ))
         if os.environ.get('BUX_SAFE'):
             raise RuntimeError('BUX_SAFE is set, cannot order')
         return Request(
