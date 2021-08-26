@@ -4,6 +4,7 @@ from ._market_hours import MarketHours
 from ._me import Me
 from ._message import Message
 from ._movers import Movers
+from ._order import Order
 from ._orders_config import OrdersConfig
 from ._personal_data import PersonalData
 from ._portfolio import Portfolio
@@ -26,6 +27,7 @@ __all__ = [
     'Me',
     'Message',
     'Movers',
+    'Order',
     'OrdersConfig',
     'PersonalData',
     'Portfolio',
