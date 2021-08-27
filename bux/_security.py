@@ -64,11 +64,15 @@ class Security(NamedTuple):
 
     def order(
         self, *,
+        access_token: str,
         direction: str = 'BUY',
         quantity: int = 1,
         type: str = 'BASIC',
         fee: Optional[types.Price] = None,
-    ) -> Request[types.OrdersConfig]:  # pragma: no cover
+    ) -> Request[types.Order]:  # pragma: no cover
+        """
+        access_token can be obtained using `UserAPI.authorize`
+        """
         assert direction in ('BUY', 'SELL')
         assert type in ('BASIC', 'MARKET', 'LIMIT_ORDER_1D')
         if fee is None:
@@ -79,6 +83,8 @@ class Security(NamedTuple):
             ))
         if os.environ.get('BUX_SAFE'):
             raise RuntimeError('BUX_SAFE is set, cannot order')
+        headers = self.api._headers
+        headers['pin-authorization'] = f'Bearer {access_token}'
         return Request(
             url=f'{self.api.config.stocks_url}/portfolio-presentation/13/users/me/orders',
             method='POST',
@@ -89,6 +95,6 @@ class Security(NamedTuple):
                 quantity=str(quantity),
                 type=type,
             ),
-            headers=self.api._headers,
-            on_json=types.OrdersConfig,
+            headers=headers,
+            on_json=types.Order,
         )

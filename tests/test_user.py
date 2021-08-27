@@ -98,3 +98,8 @@ def test_search(api: bux.UserAPI, record_resp):
             unwrap={'security', 'socialInfo'},
             exclude={'stats'},
         )
+
+
+def test_user_authorize(api: bux.UserAPI, pin, record_resp):
+    access_token = api.authorize(pin).requests()
+    assert len(access_token) == 257

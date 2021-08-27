@@ -19,10 +19,10 @@ class UserAPI(NamedTuple):
             **self.config.headers,
         }
 
-    def authorize(self, pin: str) -> Request[str]:  # pragma: no cover
+    def authorize(self, pin: str) -> Request[str]:
         """Request access token.
 
-        Access token is not currently required to work with any endpoints.
+        Access token is required to execute an order.
         Expires after 10 minutes.
         `pin` is the PIN code that the app asks you on log in.
         """
