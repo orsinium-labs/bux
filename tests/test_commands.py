@@ -86,6 +86,13 @@ def test_cli_new_stocks(token, record_resp):
     assert '00' in result
 
 
+def test_cli_etfs(token, record_resp):
+    result = _call('etfs', token=token)
+    assert 'S&P 500 Index ETF' in result
+    assert 'IE00B3XXRP09' in result
+    assert 'VUSA' in result
+
+
 def test_cli_following(token, record_resp):
     result = _call('following', token=token)
     assert '%' in result

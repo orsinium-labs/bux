@@ -2,6 +2,7 @@ from ._base import Command, commands
 from ._categories import Categories
 from ._countries import Countries
 from ._dividends import Dividends
+from ._etfs import ETFs
 from ._following import Following
 from ._gainers import Gainers
 from ._get_token import GetToken
@@ -25,6 +26,7 @@ __all__ = [
     'Command',
     'Countries',
     'Dividends',
+    'ETFs',
     'Following',
     'Gainers',
     'GetToken',
