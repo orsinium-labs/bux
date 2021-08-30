@@ -26,7 +26,7 @@ class Order(Command):
         api = bux.UserAPI(token=self.args.token)
 
         stock = api.security(self.args.id).presentation().requests()
-        print(stock.name)
+        self.print(stock.name)
 
         conf = api.security(self.args.id).orders_config().requests()
         q: int = self.args.quantity
@@ -34,19 +34,19 @@ class Order(Command):
         direction: str = self.args.direction
         price = conf.offer if direction == 'buy' else conf.bid
         s = '' if q == 1 else 's'
-        print(f'You will {direction} {abs(q)} stock{s} for ~{price}')
+        self.print(f'You will {direction} {abs(q)} stock{s} for ~{price}')
 
         for otype in conf.order_types:
             if otype.name == self.args.type:
                 break
         else:
-            print(f'Unknown order type: {self.args.type}')
+            self.print(f'Unknown order type: {self.args.type}')
             return 1
-        print(f'\nOrder type is {otype.name}:')
-        print(f'  fee {otype.fee}')
+        self.print(f'\nOrder type is {otype.name}:')
+        self.print(f'  fee {otype.fee}')
         if otype.expiration_date:
             self.print(f'  expires {otype.expiration_date}')
-        print('  execution windows:')
+        self.print('  execution windows:')
         for win in otype.execution_windows:
             self.print(f'    {win.start} - {win.end}')
 
@@ -59,7 +59,7 @@ class Order(Command):
         self,
         fee: bux.types.Price,
         access_token: str,
-    ) -> int:  # pragma: no-cover
+    ) -> int:
         yes = input('type YES to proceed: ')
         if yes != 'YES':
             return 1
@@ -71,6 +71,6 @@ class Order(Command):
             fee=fee,
             access_token=access_token,
         ).requests()
-        print('ORDER IS EXECUTED')
-        print(order.id)
+        self.print('ORDER IS EXECUTED')
+        self.print(order.id)
         return 0

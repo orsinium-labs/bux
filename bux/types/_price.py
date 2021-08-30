@@ -18,3 +18,7 @@ class Price(Response):
 
     def __str__(self) -> str:
         return f'{self.amount} {self.currency}'
+
+    def __format__(self, spec: str) -> str:
+        amount = format(self.amount, spec)
+        return f'{amount} {self.currency}'

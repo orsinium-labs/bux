@@ -15,6 +15,7 @@ from ._me import Me
 from ._new_stocks import NewStocks
 from ._order import Order
 from ._orders_config import OrdersConfig
+from ._portfolio import Portfolio
 from ._search import Search
 from ._tag import Tag
 from ._tags import Tags
@@ -40,6 +41,7 @@ __all__ = [
     'NewStocks',
     'Order',
     'OrdersConfig',
+    'Portfolio',
     'Search',
     'Tag',
     'Tags',

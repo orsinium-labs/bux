@@ -52,12 +52,17 @@ def test_portfolio(api: bux.UserAPI, record_resp):
     }
     assert set(resp) == fields
     assert resp.account_value.amount >= 0
-    check_has_all_getters(resp, exclude={'positions'})
-    if resp['positions']['EQTY']:
+    check_has_all_getters(resp, exclude={'positions', 'orders'})
+    for pos in resp.positions:
         check_has_all_getters(
-            resp.positions_eqty[0],
-            exclude={'securityType', 'position'},
+            pos,
+            exclude={'position'},
             unwrap={'security'},
+        )
+    for order in resp.orders:
+        check_has_all_getters(
+            order,
+            exclude={'orderState', 'partialExecutions'},
         )
 
 

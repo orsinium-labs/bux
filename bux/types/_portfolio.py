@@ -1,8 +1,10 @@
+from itertools import chain
 from typing import Any, Dict, List, Optional
 
 from ._position import Position
 from ._price import Price
 from ._response import Response
+from ._ws_order import WSOrder
 
 
 class PortfolioPosition(Position):
@@ -37,6 +39,10 @@ class PortfolioPosition(Position):
         if 'bid' not in self['security']:
             return None
         return Price(self['security']['bid'])
+
+    @property
+    def type(self) -> str:
+        return self['security']['securityType']
 
 
 class Portfolio(Response):
@@ -81,13 +87,17 @@ class Portfolio(Response):
         return self['marketsOpen']
 
     @property
-    def orders(self) -> Response:
-        return Response(self['orders'])
+    def orders(self) -> List[WSOrder]:
+        orders = chain(
+            self['orders']['EQTY'],
+            self['orders']['ETF'],
+        )
+        return [WSOrder(order['order']) for order in orders]
 
     @property
-    def positions_eqty(self) -> List[PortfolioPosition]:
-        return [PortfolioPosition(p) for p in self['positions']['EQTY']]
-
-    @property
-    def positions_etf(self) -> List[PortfolioPosition]:
-        return [PortfolioPosition(p) for p in self['positions']['ETF']]
+    def positions(self) -> List[PortfolioPosition]:
+        poss = chain(
+            self['positions']['EQTY'],
+            self['positions']['ETF'],
+        )
+        return [PortfolioPosition(p) for p in poss]

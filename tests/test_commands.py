@@ -3,9 +3,11 @@ import io
 from bux._cli import main
 
 
-def _call(*cmd: str, token, code=0) -> str:
+def _call(*cmd: str, token, pin=None, code=0) -> str:
     stream = io.StringIO()
     cmd += ('--token', token)
+    if pin is not None:
+        cmd += ('--pin', pin)
     actual_code = main(list(cmd), stream=stream)
     assert actual_code == code
     stream.seek(0)
@@ -99,6 +101,13 @@ def test_cli_following(token, record_resp):
     assert '00' in result
 
 
+def test_cli_portfolio(token, record_resp):
+    result = _call('portfolio', token=token)
+    assert 'EUR' in result
+    assert 'invested amount' in result
+    assert 'available cash' in result
+
+
 def test_cli_graph(token, record_resp):
     result = _call('graph', 'US38268T1034', token=token)
     assert '.' in result
@@ -116,3 +125,15 @@ def test_cli_orders_config(token, record_resp):
     assert 'fee 1.00 EUR' in result
     assert '09:00:00' in result
     assert '17:30:00' in result
+
+
+def test_cli_order(token, pin, record_resp):
+    result = _call(
+        'order', '-q', '2', 'buy', 'IE00BYZK4552', '--dry',
+        token=token, pin=pin,
+    )
+    assert 'BASIC:' in result
+    assert 'fee 0.00 EUR' in result
+    assert 'expires' in result
+    assert 'You will buy 2 stocks for' in result
+    assert 'Automation & Robotics ETF' in result
